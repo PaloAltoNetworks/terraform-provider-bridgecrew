@@ -112,7 +112,7 @@ make docs
 If you add new resources you will need to add a template for it in the template folder and update *scripts/generate-docs.go*, once built you will need to add the generated markdown file.
 
 - To view the documentation:
-The provider has onlin documentation here:<https://registry.terraform.io/providers/PaloAltoNetworks/bridgecrew/latest/docs>
+The provider has online documentation here:<https://registry.terraform.io/providers/PaloAltoNetworks/bridgecrew/latest/docs>
 If you want to preview your modified docs you can paste your `/docs` foleder Markdown file content into <https://registry.terraform.io/tools/doc-preview>
 
 ## Contributing
