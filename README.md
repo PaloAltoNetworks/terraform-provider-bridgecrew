@@ -53,21 +53,28 @@ Changes to Outputs:
 ```
 
 The Terraform config is in main.tf.
-Currently, there is only support for 3 data sources:
+Currently, there is only support for 8 data sources:
 
-- bridgecrew_repositories
-- bridgecrew_suppressions
+- bridgecrew_apitokens
+- bridgecrew_errors
+- bridgecrew_integrations
 - bridgecrew_policies
+- bridgecrew_repositories
+- bridgecrew_repository_branches
+- bridgecrew_suppressions
+- bridgecrew_users
 
-and one resource:
+and two resources:
 
 - bridgecrew_policy
+- bridgecrew_simple_policy
 
 More will follow.
 
 ## Examples
 
-For more detailed examples see:  <https://github.com/JamesWoolfenden/terraform-bridgecrew-examples>, each example has a video for you to follow.
+For more detailed examples see:  <https://github.com/JamesWoolfenden/terraform-bridgecrew-examples>, each example has a video for you to follow. 
+There is also a published module that uses the Provider here: <https://registry.terraform.io/modules/JamesWoolfenden/simplepolicy/bridgecrew/latest>.
 
 ## Debugging
 
@@ -102,8 +109,11 @@ make validate-docs
 make docs
 ```
 
+If you add new resources you will need to add a template for it in the template folder and update *scripts/generate-docs.go*, once built you will need to add the generated markdown file.
+
 - To view the documentation:
-Paste `/docs` Markdown file content into https://registry.terraform.io/tools/doc-preview
+The provider has onlin documentation here:<https://registry.terraform.io/providers/PaloAltoNetworks/bridgecrew/latest/docs>
+If you want to preview your modified docs you can paste your `/docs` foleder Markdown file content into <https://registry.terraform.io/tools/doc-preview>
 
 ## Contributing
 
