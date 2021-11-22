@@ -6,7 +6,7 @@ resource "bridgecrew_simple_policy" "new" {
   category       = "logging"
   frameworks     = ["Terraform"]
 
-  // For now only one condition block is valid
+
   conditions {
     resource_types = ["aws_s3_bucket", "aws_instance"]
     cond_type      = "attribute"

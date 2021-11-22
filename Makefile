@@ -93,3 +93,9 @@ docs: $(BIN)/tfplugindocs
 
 validate-docs: $(BIN)/tfplugindocs
 	$(BIN)/tfplugindocs validate
+
+fmt:
+	go fmt ./...
+
+vet:
+	go vet ./...

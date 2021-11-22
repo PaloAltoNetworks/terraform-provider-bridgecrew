@@ -10,15 +10,15 @@ type Policy struct {
 }
 
 type complexPolicy struct {
-	Provider   string     `json:"provider"`
-	ID         int        `json:"id,omitempty"`
-	Title      string     `json:"title"`
-	Severity   string     `json:"severity"`
-	Category   string     `json:"category"`
-	Guidelines string     `json:"guidelines"`
-	Conditions Conditions `json:"conditions,omitempty"`
-	Benchmarks Benchmark  `json:"benchmarks,omitempty"`
-	Frameworks []string   `json:"frameworks"`
+	Provider       string         `json:"provider"`
+	ID             int            `json:"id,omitempty"`
+	Title          string         `json:"title"`
+	Severity       string         `json:"severity"`
+	Category       string         `json:"category"`
+	Guidelines     string         `json:"guidelines"`
+	ConditionQuery ConditionQuery `json:"conditions,omitempty"`
+	Benchmarks     Benchmark      `json:"benchmarks,omitempty"`
+	Frameworks     []string       `json:"frameworks"`
 }
 
 type simplePolicy struct {
@@ -64,8 +64,23 @@ type Amount struct {
 	SUPPRESSED int
 }
 
+//ConditionQuery is the construct for the complex query screen
+type ConditionQuery struct {
+	Ands []Conditions `json:"and,omitempty"`
+}
+
 //Conditions is part of the simple query
 type Conditions struct {
+	Attribute     string   `json:"attribute,omitempty"`
+	CondType      string   `json:"cond_type,omitempty"`
+	Operator      string   `json:"operator,omitempty"`
+	ResourceTypes []string `json:"resource_types,omitempty"`
+	Value         string   `json:"value,omitempty"`
+	Or            []Or     `json:"or,omitempty"`
+}
+
+//Or Is the Condition query to construct an Or block in tf
+type Or struct {
 	Attribute     string   `json:"attribute,omitempty"`
 	CondType      string   `json:"cond_type,omitempty"`
 	Operator      string   `json:"operator,omitempty"`
