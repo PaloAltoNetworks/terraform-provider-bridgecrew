@@ -1,13 +1,13 @@
 # terraform-provider-bridgecrew
 
 [![Maintained by Bridgecrew.io](https://img.shields.io/badge/maintained%20by-bridgecrew.io-blueviolet)](https://bridgecrew.io/?utm_source=github&utm_medium=organic_oss&utm_campaign=terraform-provider-bridgecrew)
-[![release](https://github.com/bridgecrewio/terraform-provider-bridgecrew/actions/workflows/release.yml/badge.svg)](https://github.com/bridgecrewio/terraform-provider-bridgecrew/actions/workflows/security.yml)
+[![release](https://github.com/PaloAltoNetworks/terraform-provider-bridgecrew/actions/workflows/release.yml/badge.svg)](https://github.com/PaloAltoNetworks/terraform-provider-bridgecrew/actions/workflows/security.yml)
 [![slack-community](https://img.shields.io/badge/slack-bridgecrew-blueviolet.svg?logo=slack)](https://codifiedsecurity.slack.com/)
-[![Go Report Card](https://goreportcard.com/badge/github.com/bridgecrewio/terraform-provider-bridgecrew)](https://goreportcard.com/report/github.com/bridgecrewio/terraform-provider-bridgecrew)
-[![Go Reference](https://pkg.go.dev/badge/github.com/bridgecrewio/terraform-provider-bridgecrew.svg)](https://pkg.go.dev/github.com/bridgecrewio/terraform-provider-bridgecrew)
-[![GitHub All Releases](https://img.shields.io/github/downloads/bridgecrewio/terraform-provider-bridgecrew/total)](https://github.com/bridgecrewio/terraform-provider-bridgecrew/releases)
-![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/bridgecrewio/terraform-provider-bridgecrew)
-![GitHub issues](https://img.shields.io/github/issues/bridgecrewio/terraform-provider-bridgecrew)
+[![Go Report Card](https://goreportcard.com/badge/github.com/PaloAltoNetworks/terraform-provider-bridgecrew)](https://goreportcard.com/report/github.com/PaloAltoNetworks/terraform-provider-bridgecrew)
+[![Go Reference](https://pkg.go.dev/badge/github.com/PaloAltoNetworks/terraform-provider-bridgecrew.svg)](https://pkg.go.dev/github.com/PaloAltoNetworks/terraform-provider-bridgecrew)
+[![GitHub All Releases](https://img.shields.io/github/downloads/PaloAltoNetworks/terraform-provider-bridgecrew/total)](https://github.com/PaloAltoNetworks/terraform-provider-bridgecrew/releases)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/PaloAltoNetworks/terraform-provider-bridgecrew)
+![GitHub issues](https://img.shields.io/github/issues/PaloAltoNetworks/terraform-provider-bridgecrew)
 
 This guide is to help you develop/debug the Terraform Bridgecrew provider, to get started you need to obtain and add your secret - your Bridgecrew API key, as an env var,
 BRIDGECREW_API, or it won't work.
@@ -53,21 +53,28 @@ Changes to Outputs:
 ```
 
 The Terraform config is in main.tf.
-Currently, there is only support for 3 data sources:
+Currently, there is only support for 8 data sources:
 
-- bridgecrew_repositories
-- bridgecrew_suppressions
+- bridgecrew_apitokens
+- bridgecrew_errors
+- bridgecrew_integrations
 - bridgecrew_policies
+- bridgecrew_repositories
+- bridgecrew_repository_branches
+- bridgecrew_suppressions
+- bridgecrew_users
 
-and one resource:
+and two resources:
 
 - bridgecrew_policy
+- bridgecrew_simple_policy
 
 More will follow.
 
 ## Examples
 
-For more detailed examples see:  <https://github.com/JamesWoolfenden/terraform-bridgecrew-examples>, each example has a video for you to follow.
+For more detailed examples see:  <https://github.com/JamesWoolfenden/terraform-bridgecrew-examples>, each example has a video for you to follow. 
+There is also a published module that uses the Provider here: <https://registry.terraform.io/modules/JamesWoolfenden/simplepolicy/bridgecrew/latest>.
 
 ## Debugging
 
@@ -102,8 +109,11 @@ make validate-docs
 make docs
 ```
 
+If you add new resources you will need to add a template for it in the template folder and update *scripts/generate-docs.go*, once built you will need to add the generated markdown file.
+
 - To view the documentation:
-Paste `/docs` Markdown file content into https://registry.terraform.io/tools/doc-preview
+The provider has online documentation here:<https://registry.terraform.io/providers/PaloAltoNetworks/bridgecrew/latest/docs>
+If you want to preview your modified docs you can paste your `/docs` foleder Markdown file content into <https://registry.terraform.io/tools/doc-preview>
 
 ## Contributing
 
