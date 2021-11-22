@@ -21,8 +21,8 @@ For further information on bridgecrew see their on line documentation <https://d
 terraform {
   required_providers {
     bridgecrew = {
-      source = "bridgecrew/bridgecrew"
-      version >= "0.1.10"
+      source = "PaloAltoNetworks/bridgecrew"
+      version >= "0.1.21"
     }
   }
 }

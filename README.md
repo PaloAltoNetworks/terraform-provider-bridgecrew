@@ -73,7 +73,7 @@ More will follow.
 
 ## Examples
 
-For more detailed examples see:  <https://github.com/JamesWoolfenden/terraform-bridgecrew-examples>, each example has a video for you to follow. 
+For more detailed examples see:  <https://github.com/JamesWoolfenden/terraform-bridgecrew-examples>, each example has a video for you to follow.
 There is also a published module that uses the Provider here: <https://registry.terraform.io/modules/JamesWoolfenden/simplepolicy/bridgecrew/latest>.
 
 ## Debugging
@@ -113,7 +113,7 @@ If you add new resources you will need to add a template for it in the template 
 
 - To view the documentation:
 The provider has online documentation here:<https://registry.terraform.io/providers/PaloAltoNetworks/bridgecrew/latest/docs>
-If you want to preview your modified docs you can paste your `/docs` foleder Markdown file content into <https://registry.terraform.io/tools/doc-preview>
+If you want to preview your modified docs you can paste your `/docs` folder Markdown file content into <https://registry.terraform.io/tools/doc-preview>
 
 ## Contributing
 
