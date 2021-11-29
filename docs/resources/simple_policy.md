@@ -90,11 +90,11 @@ You can view the policy id, either by using the API docs policy list feature:
 
 Required:
 
-- **attribute** (String)
+- **attribute** (String) The field that you want the condition on
 - **cond_type** (String)
-- **operator** (String)
-- **resource_types** (List of String)
-- **value** (String)
+- **operator** (String) The logic Operator
+- **resource_types** (List of String) The resource type
+- **value** (String) The Value to Check
 
 
 <a id="nestedblock--benchmarks"></a>

@@ -1,5 +1,5 @@
 .PHONY: clean  docs
-TEST?=$$(go list ./... | grep -v 'vendor')
+TEST?=$$(go list ./... | grep -v 'vendor'| grep -v 'scripts'| grep -v 'version')
 HOSTNAME=jameswoolfenden
 FULL_PKG_NAME=github.com/bridgecrewio/terraform-provider-bridgecrew
 VERSION_PLACEHOLDER=version.ProviderVersion

@@ -22,26 +22,12 @@ func resourcePolicy() *schema.Resource {
 		DeleteContext: resourcePolicyDelete,
 		Schema: map[string]*schema.Schema{
 			"cloud_provider": {
-				Type:        schema.TypeString,
-				ForceNew:    true,
-				Computed:    false,
-				Description: "The Cloud provider this is for e.g. - aws, gcp, azure.",
-				Required:    true,
-				ValidateFunc: func(val interface{}, key string) (warns []string, errs []error) {
-					switch val.(string) {
-					case
-						"aws",
-						"gcp",
-						"linode",
-						"azure",
-						"oci",
-						"alicloud",
-						"digitalocean":
-						return
-					}
-					errs = append(errs, fmt.Errorf("%q Must be one of aws, gcp, linode, azure, oci, alicloud or digitalocean", val))
-					return
-				},
+				Type:         schema.TypeString,
+				ForceNew:     true,
+				Computed:     false,
+				Description:  "The Cloud provider this is for e.g. - aws, gcp, azure.",
+				Required:     true,
+				ValidateFunc: ValidateCloudProvider,
 			},
 			"id": {
 				Type:     schema.TypeString,
@@ -143,22 +129,10 @@ func resourcePolicy() *schema.Resource {
 				},
 			},
 			"file": {
-				Type:        schema.TypeString,
-				Required:    true,
-				Description: "This is the name of the YAML policy file.",
-				ValidateFunc: func(val interface{}, key string) (warns []string, errors []error) {
-
-					code, err := loadFileContent(val.(string))
-					if err != nil {
-						errors = append(errors, fmt.Errorf("unable to load %q: %w", val.(string), err))
-						return
-					}
-
-					if _, err := CheckYAMLString(string(code)); err != nil {
-						errors = append(errors, fmt.Errorf("%q contains an invalid YAML: %s", key, err))
-					}
-					return
-				},
+				Type:         schema.TypeString,
+				Required:     true,
+				Description:  "This is the name of the YAML policy file.",
+				ValidateFunc: ValidateIsYAMLFile,
 			},
 			"source_code_hash": {
 				Type:        schema.TypeString,

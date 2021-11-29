@@ -3,11 +3,9 @@ package bridgecrew
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"log"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/structure"
 	"gopkg.in/yaml.v2"
 )
 
@@ -26,23 +24,6 @@ func CheckYAMLString(yamlString interface{}) (string, error) {
 	err := yaml.Unmarshal([]byte(s), &y)
 
 	return s, err
-}
-
-// ValidPolicyJSON checks that a string contains JSON
-func ValidPolicyJSON(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
-	if len(value) < 1 {
-		errors = append(errors, fmt.Errorf("%q contains an invalid JSON policy", k))
-		return
-	}
-	if value[:1] != "{" {
-		errors = append(errors, fmt.Errorf("%q contains an invalid JSON policy", k))
-		return
-	}
-	if _, err := structure.NormalizeJsonString(v); err != nil {
-		errors = append(errors, fmt.Errorf("%q contains an invalid JSON: %s", k, err))
-	}
-	return
 }
 
 // VerifyReturn Looks at the return object from the Platform

@@ -23,59 +23,29 @@ func resourceSimplePolicy() *schema.Resource {
 		DeleteContext: resourceSimplePolicyDelete,
 		Schema: map[string]*schema.Schema{
 			"cloud_provider": {
-				Type:        schema.TypeString,
-				ForceNew:    true,
-				Computed:    false,
-				Description: "The Cloud provider this is for e.g. - aws, gcp, azure.",
-				Required:    true,
-				ValidateFunc: func(val interface{}, key string) (warns []string, errs []error) {
-					switch val.(string) {
-					case
-						"aws",
-						"gcp",
-						"linode",
-						"azure",
-						"oci",
-						"alicloud",
-						"digitalocean":
-						return
-					}
-					errs = append(errs, fmt.Errorf("%q Must be one of aws, gcp, linode, azure, oci, alicloud or digitalocean", val))
-					return
-				},
+				Type:         schema.TypeString,
+				ForceNew:     true,
+				Computed:     false,
+				Description:  "The Cloud provider this is for e.g. - aws, gcp, azure.",
+				Required:     true,
+				ValidateFunc: ValidateCloudProvider,
 			},
 			"id": {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
 			"title": {
-				Type:        schema.TypeString,
-				ForceNew:    true,
-				Required:    true,
-				Description: "The title of the check, needs to be longer than 20 chars - an effort to ensure detailed names.",
-				ValidateFunc: func(val interface{}, key string) (warns []string, errs []error) {
-					if len(val.(string)) < 20 {
-						errs = append(errs, fmt.Errorf("%q Title should attempt be meaningful (gt 20 chars)", val))
-					}
-					return
-				},
+				Type:         schema.TypeString,
+				ForceNew:     true,
+				Required:     true,
+				Description:  "The title of the check, needs to be longer than 20 chars - an effort to ensure detailed names.",
+				ValidateFunc: ValidatePolicyTitle,
 			},
 			"severity": {
-				Type:        schema.TypeString,
-				Required:    true,
-				Description: "Severity category allows you to indicate importance and this value can determine build or PR failure in the platform.",
-				ValidateFunc: func(val interface{}, key string) (warns []string, errs []error) {
-					switch val.(string) {
-					case
-						"critical",
-						"high",
-						"low",
-						"medium":
-						return
-					}
-					errs = append(errs, fmt.Errorf("%q Must be one of critical, high, medium or low", val))
-					return
-				},
+				Type:         schema.TypeString,
+				Required:     true,
+				Description:  "Severity category allows you to indicate importance and this value can determine build or PR failure in the platform.",
+				ValidateFunc: ValidateSeverity,
 			},
 			"frameworks": {
 				Type:        schema.TypeList,
@@ -86,45 +56,17 @@ func resourceSimplePolicy() *schema.Resource {
 				},
 			},
 			"category": {
-				Type:        schema.TypeString,
-				Required:    true,
-				Description: "Check category for grouping similar checks.",
-				ValidateFunc: func(val interface{}, key string) (warns []string, errs []error) {
-					switch val.(string) {
-					case
-						"logging",
-						"elasticsearch",
-						"general",
-						"storage",
-						"encryption",
-						"networking",
-						"monitoring",
-						"kubernetes",
-						"serverless",
-						"backup_and_recovery",
-						"iam",
-						"secrets",
-						"public":
-						return
-					}
-					errs = append(errs,
-						fmt.Errorf("%q Must be one of logging, elasticsearch, general, storage, encryption,"+
-							" networking, monitoring, kubernetes, serverless, backup_and_recovery, backup_and_recovery, public,"+
-							" or iam", val))
-					return
-				},
+				Type:         schema.TypeString,
+				Required:     true,
+				Description:  "Check category for grouping similar checks.",
+				ValidateFunc: ValidateCategory,
 			},
 			"guidelines": {
 				Type:     schema.TypeString,
 				Required: true,
 				Description: "A detailed description helps you understand why the check was written and should include details on how " +
 					"to fix the violation. The field must more than 50 chars in it, to encourage detail.",
-				ValidateFunc: func(val interface{}, key string) (warns []string, errs []error) {
-					if len(val.(string)) < 50 {
-						errs = append(errs, fmt.Errorf("%q Guideline should attempt be helpful (gt 50 chars)", val))
-					}
-					return
-				},
+				ValidateFunc: ValidateGuidelines,
 			},
 			"conditions": {
 				Type:        schema.TypeList,
@@ -134,8 +76,9 @@ func resourceSimplePolicy() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"resource_types": {
-							Type:     schema.TypeList,
-							Required: true,
+							Type:        schema.TypeList,
+							Required:    true,
+							Description: "The resource type",
 							Elem: &schema.Schema{
 								Type: schema.TypeString,
 							},
@@ -145,17 +88,20 @@ func resourceSimplePolicy() *schema.Resource {
 							Required: true,
 						},
 						"attribute": {
-							Type:     schema.TypeString,
-							Required: true,
+							Type:        schema.TypeString,
+							Description: "The field that you want the condition on",
+							Required:    true,
 						},
-
 						"operator": {
-							Type:     schema.TypeString,
-							Required: true,
+							Type:         schema.TypeString,
+							Required:     true,
+							Description:  "The logic Operator",
+							ValidateFunc: ValidateOperator,
 						},
 						"value": {
-							Type:     schema.TypeString,
-							Required: true,
+							Type:        schema.TypeString,
+							Description: "The Value to Check",
+							Required:    true,
 						},
 					},
 				},

@@ -136,20 +136,20 @@ Required:
 
 Optional:
 
-- **attribute** (String)
+- **attribute** (String) The field that you want the condition on
 - **cond_type** (String)
-- **operator** (String)
+- **operator** (String) The logic operator
 - **or** (Block List) Conditions captures the actual check logic (see [below for nested schema](#nestedblock--conditionquery--and--or))
-- **resource_types** (List of String)
-- **value** (String)
+- **resource_types** (List of String) The resource type
+- **value** (String) The value to check against
 
 <a id="nestedblock--conditionquery--and--or"></a>
 ### Nested Schema for `conditionquery.and.or`
 
 Required:
 
-- **attribute** (String)
+- **attribute** (String) The field that you want the condition on
 - **cond_type** (String)
-- **operator** (String)
-- **resource_types** (List of String)
-- **value** (String)
+- **operator** (String) The logic operator
+- **resource_types** (List of String) The resource type
+- **value** (String) The Value to check
