@@ -95,6 +95,10 @@ func main() {
 			path: tempDir + "/data-sources/apitokens.md.tmpl",
 		},
 		{
+			name: "data_source_apitokens_customer",
+			path: tempDir + "/data-sources/apitokens_customer.md.tmpl",
+		},
+		{
 			name: "data_source_policies",
 			path: tempDir + "/data-sources/policies.md.tmpl",
 		},

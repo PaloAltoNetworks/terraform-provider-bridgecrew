@@ -1,6 +1,7 @@
 package bridgecrew
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -37,5 +38,25 @@ abc:
 	// We expect the invalid YAML to be shown back to us again.
 	if actual != invalidYaml {
 		t.Fatalf("Got:\n\n%s\n\nExpected:\n\n%s\n", actual, invalidYaml)
+	}
+}
+
+func TestHighlight(t *testing.T) {
+	highlight("For Coverage")
+}
+
+func TestCastToStringList(t *testing.T) {
+
+	expected := []string{"first", "second", "third"}
+	names := make([]interface{}, len(expected))
+	for i, s := range expected {
+		names[i] = s
+	}
+
+	actual := CastToStringList(names)
+
+	// We expect the same YAML string back
+	if !reflect.DeepEqual(actual, expected) {
+		t.Fatalf("Got:\n\n%s\n\nExpected:\n\n%s\n", actual, expected)
 	}
 }

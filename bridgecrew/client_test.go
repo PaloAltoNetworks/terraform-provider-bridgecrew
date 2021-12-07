@@ -13,6 +13,7 @@ func Test_authClient(t *testing.T) {
 		path      string
 		configure ProviderConfig
 	}
+
 	tests := []struct {
 		name    string
 		args    args

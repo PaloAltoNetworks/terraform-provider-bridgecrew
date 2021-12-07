@@ -13,6 +13,7 @@ func loadFileContent(v string) ([]byte, error) {
 		return nil, err
 	}
 	fileContent, err := os.ReadFile(filename)
+
 	if err != nil {
 		return nil, err
 	}

@@ -6,6 +6,10 @@ output "apitokens" {
   value = data.bridgecrew_apitokens.all
 }
 
+output "customer_apitokens" {
+  value = data.bridgecrew_apitokens_customer.all
+}
+
 output "users" {
   value = data.bridgecrew_users.all
 }

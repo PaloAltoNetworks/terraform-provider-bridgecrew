@@ -1,0 +1,24 @@
+{{define "data_source_apitokens_customer"}}---
+layout: "bridgecrew"
+page_title: "Bridgecrew: data_source_apitokens_customer"
+sidebar_current: "docs-bridgecrew-data_source_apitokens_customer"
+
+description: |-
+Get a list of all of your Bridgecrew platform apitokens.
+More details on the Bridgecrew API for this datasource are available <https://docs.bridgecrew.io/reference/apitokenlistbycustomername>.
+
+---
+
+# bridgecrew_apitokens_customer
+
+Use this datasource to get the details of your all your apitokens from Bridgecrew.
+
+
+
+
+## Example Usage
+```hcl
+data "bridgecrew_apitokens_customer" "myapitokens" {
+}
+```
+{{end}}
