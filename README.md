@@ -90,6 +90,17 @@ and
 export TF_LOG_PROVIDER="DEBUG"
 ```
 
+I have added the ability to debug the provider,
+![debug options](debug.png "debug options")
+
+Run in debug (with some breakpoints) and the output shows:
+
+```shell
+ TF_REATTACH_PROVIDERS='{"jameswoolfenden/dev/bridgecrew":{"Protocol":"grpc","ProtocolVersion":5,"Pid":68437,"Test":true,"Addr":{"Network":"unix","String":"/var/folders/pd/vb2p7hln0gj15hjkn6g31_j00000gn/T/plugin752084824"}}}'
+```
+
+ export that to your shell, and use Terraform in debug!
+
 ## Building The Documentation
 
 The documentation is built from components (go templates) stored in the `templates` folder.

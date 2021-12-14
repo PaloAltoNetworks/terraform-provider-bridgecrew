@@ -1,6 +1,8 @@
 package main
 
 import (
+	"context"
+	"flag"
 	"log"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -9,10 +11,25 @@ import (
 )
 
 func main() {
+	var debugMode bool
+	flag.BoolVar(&debugMode, "debug", false, "set to true to run the provider with support for debuggers like delve")
+	flag.Parse()
+
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
-	plugin.Serve(&plugin.ServeOpts{
+
+	opts := &plugin.ServeOpts{
 		ProviderFunc: func() *schema.Provider {
 			return bridgecrew.Provider()
 		},
-	})
+	}
+
+	if debugMode {
+		err := plugin.Debug(context.Background(), "jameswoolfenden/dev/bridgecrew", opts)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+		return
+	}
+
+	plugin.Serve(opts)
 }
