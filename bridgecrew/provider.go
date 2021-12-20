@@ -45,6 +45,7 @@ func Provider() *schema.Provider {
 			"bridgecrew_apitokens_customer":  dataSourceApitokensByCustomer(),
 			"bridgecrew_integrations":        dataSourceIntegrations(),
 			"bridgecrew_users":               dataSourceUsers(),
+			"bridgecrew_incidents":           dataSourceIncidents(),
 		},
 	}
 }

@@ -34,7 +34,6 @@ output "complex_policy" {
   value = bridgecrew_complex_policy.new
 }
 
-
 output "repos" {
   value = data.bridgecrew_repositories.all
 }
@@ -45,4 +44,8 @@ output "suppression" {
 
 output "polices" {
   value = data.bridgecrew_policies.all
+}
+
+output "incidents" {
+  value = data.bridgecrew_incidents.all
 }

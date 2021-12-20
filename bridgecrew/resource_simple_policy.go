@@ -287,7 +287,7 @@ func setSimplePolicy(d *schema.ResourceData) (simplePolicy, error) {
 	myPolicy.Severity = d.Get("severity").(string)
 	myPolicy.Title = d.Get("title").(string)
 	myPolicy.Guidelines = d.Get("guidelines").(string)
-	myPolicy.Frameworks = CastToStringList(d.Get("frameworks").([]interface{}))
+	myPolicy.Frameworks, _ = CastToStringList(d.Get("frameworks").([]interface{}))
 
 	return myPolicy, nil
 }
@@ -307,7 +307,7 @@ func setConditions(d *schema.ResourceData) ([]Conditions, error) {
 			Condition.Operator = temp["operator"].(string)
 
 			var myResources []string
-			myResources = CastToStringList(temp["resource_types"].([]interface{}))
+			myResources, _ = CastToStringList(temp["resource_types"].([]interface{}))
 			Condition.ResourceTypes = myResources
 
 			conditions = append(conditions, Condition)
@@ -328,17 +328,17 @@ func setBenchmark(d *schema.ResourceData) (Benchmark, error) {
 		myBenchmark := (d.Get("benchmarks").(*schema.Set)).List()
 
 		s := myBenchmark[0].(map[string]interface{})
-		myItem.Cisawsv12 = CastToStringList(s["cis_aws_v12"].([]interface{}))
-		myItem.Cisawsv13 = CastToStringList(s["cis_aws_v13"].([]interface{}))
-		myItem.Cisazurev11 = CastToStringList(s["cis_azure_v11"].([]interface{}))
-		myItem.Cisazurev12 = CastToStringList(s["cis_azure_v12"].([]interface{}))
-		myItem.Cisazurev13 = CastToStringList(s["cis_azure_v13"].([]interface{}))
-		myItem.Cisgcpv11 = CastToStringList(s["cis_gcp_v11"].([]interface{}))
-		myItem.Ciskubernetesv15 = CastToStringList(s["cis_kubernetes_v15"].([]interface{}))
-		myItem.Ciskubernetesv16 = CastToStringList(s["cis_kubernetes_v16"].([]interface{}))
-		myItem.Cisdockerv11 = CastToStringList(s["cis_docker_v11"].([]interface{}))
-		myItem.Ciseksv11 = CastToStringList(s["cis_eks_v11"].([]interface{}))
-		myItem.Cisgkev11 = CastToStringList(s["cis_gke_v11"].([]interface{}))
+		myItem.Cisawsv12, _ = CastToStringList(s["cis_aws_v12"].([]interface{}))
+		myItem.Cisawsv13, _ = CastToStringList(s["cis_aws_v13"].([]interface{}))
+		myItem.Cisazurev11, _ = CastToStringList(s["cis_azure_v11"].([]interface{}))
+		myItem.Cisazurev12, _ = CastToStringList(s["cis_azure_v12"].([]interface{}))
+		myItem.Cisazurev13, _ = CastToStringList(s["cis_azure_v13"].([]interface{}))
+		myItem.Cisgcpv11, _ = CastToStringList(s["cis_gcp_v11"].([]interface{}))
+		myItem.Ciskubernetesv15, _ = CastToStringList(s["cis_kubernetes_v15"].([]interface{}))
+		myItem.Ciskubernetesv16, _ = CastToStringList(s["cis_kubernetes_v16"].([]interface{}))
+		myItem.Cisdockerv11, _ = CastToStringList(s["cis_docker_v11"].([]interface{}))
+		myItem.Ciseksv11, _ = CastToStringList(s["cis_eks_v11"].([]interface{}))
+		myItem.Cisgkev11, _ = CastToStringList(s["cis_gke_v11"].([]interface{}))
 		return myItem, nil
 	}
 

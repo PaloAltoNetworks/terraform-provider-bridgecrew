@@ -139,3 +139,9 @@ func ValidPolicyJSON(v interface{}, k string) (ws []string, errors []error) {
 	}
 	return
 }
+
+//keyExists looks to see if an item exists in the map
+func keyExists(decoded map[string]interface{}, key string) bool {
+	val, ok := decoded[key]
+	return ok && val != nil
+}

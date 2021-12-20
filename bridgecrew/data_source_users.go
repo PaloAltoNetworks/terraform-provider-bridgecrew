@@ -56,10 +56,10 @@ func dataSourceUsers() *schema.Resource {
 }
 
 func dataSourceUsersRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	path := "%s/manage/users"
+	params := RequestParams{"%s/manage/users", "v1", "GET"}
 
 	configure := m.(ProviderConfig)
-	client, req, diagnostics, done, err := authClient(path, configure)
+	client, req, diagnostics, done, err := authClient(params, configure)
 
 	if err != nil {
 		diagnostics = append(diagnostics, diag.Diagnostic{

@@ -40,12 +40,19 @@ func VerifyReturn(err error, body []byte) (*Result, diag.Diagnostics, bool) {
 
 // CastToStringList is a helper to work with conversion of types
 // If there's a better way (most likely)?
-func CastToStringList(temp []interface{}) []string {
+func CastToStringList(temp []interface{}) ([]string, bool) {
 	var versions []string
-	for _, version := range temp {
-		versions = append(versions, version.(string))
+	if temp != nil {
+		for _, version := range temp {
+			if version != nil {
+				versions = append(versions, version.(string))
+			}
+		}
+	} else {
+		log.Print("Cast from Nil")
+		return nil, true
 	}
-	return versions
+	return versions, false
 }
 
 // highlight is just to help with manual debugging, so you can find the lines

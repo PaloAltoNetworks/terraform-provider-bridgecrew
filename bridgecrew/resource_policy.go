@@ -234,7 +234,7 @@ func setPolicy(d *schema.ResourceData) (Policy, error) {
 	}
 
 	myPolicy.Provider = d.Get("cloud_provider").(string)
-	myPolicy.Frameworks = CastToStringList(d.Get("frameworks").([]interface{}))
+	myPolicy.Frameworks, _ = CastToStringList(d.Get("frameworks").([]interface{}))
 
 	return myPolicy, nil
 }

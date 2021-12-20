@@ -118,6 +118,10 @@ func main() {
 			name: "data_source_errors",
 			path: tempDir + "/data-sources/errors.md.tmpl",
 		},
+		{
+			name: "data_source_incidents",
+			path: tempDir + "/data-sources/incidents.md.tmpl",
+		},
 	}
 
 	var resourcePages = []Page{
@@ -168,7 +172,7 @@ func tfPluginDocsExists(tfplugindocsLocation string) bool {
 	return !stat.IsDir()
 }
 
-// getTemplate walks the templates directory filtering non-tmpl extension
+// getTemplate walks the templates directory, filtering non-tmpl extension
 // files, and parsing all the templates found (ensuring they must parse).
 func getTemplate(tmplDir string) *template.Template {
 	var templateFiles []string
@@ -257,7 +261,7 @@ func appendSyntaxToFiles(tempDir string) {
 //
 // We do this so that we can create a new /templates directory and move the
 // contents of the temporary directory into the new location. Thus allowing
-// tfplugindocs to be run within the root of the terraform provider repo.
+// tfplugindocs to be run within the root of the Terraform provider repo.
 func backupTemplatesDir(tmplDir string) {
 
 	// os.RemoveAll(tmplDir+"-backup")

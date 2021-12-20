@@ -53,7 +53,7 @@ func TestCastToStringList(t *testing.T) {
 		names[i] = s
 	}
 
-	actual := CastToStringList(names)
+	actual, _ := CastToStringList(names)
 
 	// We expect the same YAML string back
 	if !reflect.DeepEqual(actual, expected) {

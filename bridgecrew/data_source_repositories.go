@@ -57,10 +57,10 @@ func dataSourceRepositories() *schema.Resource {
 }
 
 func dataSourceRepositoryRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	path := "%s/repositories"
+	params := RequestParams{"%s/repositories", "v1", "GET"}
 
 	configure := m.(ProviderConfig)
-	client, req, diagnostics, done, err := authClient(path, configure)
+	client, req, diagnostics, done, err := authClient(params, configure)
 
 	if err != nil {
 		diagnostics = append(diagnostics, diag.Diagnostic{

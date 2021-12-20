@@ -61,10 +61,10 @@ func dataSourceIntegrations() *schema.Resource {
 }
 
 func dataSourceIntegrationRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	path := "%s/integrations"
+	params := RequestParams{"%s/integrations", "v1", "GET"}
 
 	configure := m.(ProviderConfig)
-	client, req, diagnostics, done, err := authClient(path, configure)
+	client, req, diagnostics, done, err := authClient(params, configure)
 
 	if err != nil {
 		diagnostics = append(diagnostics, diag.Diagnostic{

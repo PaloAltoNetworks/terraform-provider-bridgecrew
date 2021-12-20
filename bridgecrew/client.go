@@ -9,15 +9,22 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 )
 
+//RequestParams (parameters) for auth client
+type RequestParams struct {
+	path    string
+	version string
+	method  string
+}
+
 //use basic auth client
-func authClient(path string, configure ProviderConfig) (*http.Client, *http.Request, diag.Diagnostics, bool, error) {
+func authClient(params RequestParams, configure ProviderConfig) (*http.Client, *http.Request, diag.Diagnostics, bool, error) {
 
 	var diags diag.Diagnostics
 	api := configure.Token
 	url := configure.URL
 
 	var baseurl string
-	baseurl = fmt.Sprintf(url + "/api/v1")
+	baseurl = fmt.Sprintf(url + "/api/" + params.version)
 
 	if api == "" {
 		log.Fatal("BRIDGECREW_API is missing")
@@ -28,7 +35,7 @@ func authClient(path string, configure ProviderConfig) (*http.Client, *http.Requ
 
 	client := &http.Client{Timeout: 30 * time.Second}
 
-	req, err := http.NewRequest("GET", fmt.Sprintf(path, baseurl), nil)
+	req, err := http.NewRequest(params.method, fmt.Sprintf(params.path, baseurl), nil)
 	if err != nil {
 		diags = append(diags, diag.Diagnostic{
 			Severity: diag.Error,
@@ -38,6 +45,7 @@ func authClient(path string, configure ProviderConfig) (*http.Client, *http.Requ
 
 	// add authorization header to the req
 	req.Header.Add("Authorization", bearer)
+
 	return client, req, diags, false, err
 }
 

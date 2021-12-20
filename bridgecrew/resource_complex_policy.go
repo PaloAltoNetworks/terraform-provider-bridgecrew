@@ -335,7 +335,7 @@ func setComplexPolicy(d *schema.ResourceData) (complexPolicy, error) {
 	myPolicy.Severity = d.Get("severity").(string)
 	myPolicy.Title = d.Get("title").(string)
 	myPolicy.Guidelines = d.Get("guidelines").(string)
-	myPolicy.Frameworks = CastToStringList(d.Get("frameworks").([]interface{}))
+	myPolicy.Frameworks, _ = CastToStringList(d.Get("frameworks").([]interface{}))
 
 	return myPolicy, nil
 }
@@ -375,7 +375,7 @@ func setComplexConditions(d *schema.ResourceData) (ConditionQuery, error) {
 					orCondition.Attribute = localor["attribute"].(string)
 					orCondition.Operator = localor["operator"].(string)
 
-					orCondition.ResourceTypes = CastToStringList(localor["resource_types"].([]interface{}))
+					orCondition.ResourceTypes, _ = CastToStringList(localor["resource_types"].([]interface{}))
 					orConditions = append(orConditions, orCondition)
 				}
 				TheOrs.Or = orConditions
@@ -386,7 +386,7 @@ func setComplexConditions(d *schema.ResourceData) (ConditionQuery, error) {
 				Condition.Attribute = temp["attribute"].(string)
 				Condition.Operator = temp["operator"].(string)
 
-				Condition.ResourceTypes = CastToStringList(temp["resource_types"].([]interface{}))
+				Condition.ResourceTypes, _ = CastToStringList(temp["resource_types"].([]interface{}))
 				conditions = append(conditions, Condition)
 			}
 		}

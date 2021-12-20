@@ -49,10 +49,10 @@ func dataSourceApitokens() *schema.Resource {
 }
 
 func dataSourceApitokensRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	path := "%s/api-tokens"
+	params := RequestParams{"%s/api-tokens", "v1", "GET"}
 
 	configure := m.(ProviderConfig)
-	client, req, diagnostics, done, err := authClient(path, configure)
+	client, req, diagnostics, done, err := authClient(params, configure)
 
 	if done {
 		return diagnostics

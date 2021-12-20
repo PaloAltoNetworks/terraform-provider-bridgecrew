@@ -31,12 +31,12 @@ func dataSourceRepositoryBranches() *schema.Resource {
 
 func dataSourceRepositoryBranchRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	target := d.Get("target")
-	path := "%s/repositories/branches" + "/" + target.(string)
+	params := RequestParams{"%s/repositories/branches" + "/" + target.(string), "v1", "GET"}
 
 	//todo endpoint doesnt work like this
 
 	configure := m.(ProviderConfig)
-	client, req, diagnostics, done, err := authClient(path, configure)
+	client, req, diagnostics, done, err := authClient(params, configure)
 
 	if done {
 		return diagnostics
