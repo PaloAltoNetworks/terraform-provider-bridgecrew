@@ -49,3 +49,7 @@ output "polices" {
 output "incidents" {
   value = data.bridgecrew_incidents.all
 }
+
+output "presets" {
+  value = data.bridgecrew_incidents_preset.all
+}
