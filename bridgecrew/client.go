@@ -44,7 +44,9 @@ func authClient(params RequestParams, configure ProviderConfig) (*http.Client, *
 	}
 
 	// add authorization header to the req
-	req.Header.Add("Authorization", bearer)
+	req.Header.Add("authorization", bearer)
+	req.Header.Add("Accept", "application/json")
+	req.Header.Add("Content-Type", "application/json")
 
 	return client, req, diags, false, err
 }

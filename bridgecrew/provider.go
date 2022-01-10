@@ -46,6 +46,7 @@ func Provider() *schema.Provider {
 			"bridgecrew_integrations":        dataSourceIntegrations(),
 			"bridgecrew_users":               dataSourceUsers(),
 			"bridgecrew_incidents":           dataSourceIncidents(),
+			"bridgecrew_incidents_info":      dataSourceIncidentsInfo(),
 			"bridgecrew_incidents_preset":    dataSourceIncidentsPreset(),
 		},
 	}

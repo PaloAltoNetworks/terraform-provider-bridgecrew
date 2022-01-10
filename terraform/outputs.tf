@@ -53,3 +53,7 @@ output "incidents" {
 output "presets" {
   value = data.bridgecrew_incidents_preset.all
 }
+
+output "info" {
+  value = data.bridgecrew_incidents_info.all
+}

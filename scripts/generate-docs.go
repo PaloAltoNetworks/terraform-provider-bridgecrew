@@ -126,6 +126,10 @@ func main() {
 			name: "data_source_incidents_preset",
 			path: tempDir + "/data-sources/incidents_preset.md.tmpl",
 		},
+		{
+			name: "data_source_incidents_info",
+			path: tempDir + "/data-sources/incidents_info.md.tmpl",
+		},
 	}
 
 	var resourcePages = []Page{
