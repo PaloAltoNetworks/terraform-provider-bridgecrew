@@ -110,6 +110,7 @@ func dataSourceIncidents() *schema.Resource {
 	}
 }
 
+//goland:noinspection GoUnusedParameter
 func dataSourceIncidentRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	configure := m.(ProviderConfig)
 	var diagnostics diag.Diagnostics
@@ -185,7 +186,7 @@ func dataSourceIncidentRead(ctx context.Context, d *schema.ResourceData, m inter
 
 func flattenIncidentData(Incidents *[]map[string]interface{}) []interface{} {
 	if Incidents != nil {
-		ois := make([]interface{}, len(*Incidents), len(*Incidents))
+		ois := make([]interface{}, len(*Incidents))
 		for i, Incident := range *Incidents {
 			oi := make(map[string]interface{})
 

@@ -18,9 +18,9 @@ output "users" {
 #  value = data.bridgecrew_repository_branches.all
 #}
 
-output "errors" {
-  value = data.bridgecrew_errors.all
-}
+#output "errors" {
+#  value = data.bridgecrew_errors.all
+#}
 
 output "policy" {
   value = bridgecrew_policy.new

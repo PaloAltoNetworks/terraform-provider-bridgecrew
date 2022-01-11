@@ -180,21 +180,26 @@ func tfPluginDocsExists(tfplugindocsLocation string) bool {
 	return !stat.IsDir()
 }
 
-// getTemplate walks the templates directory, filtering non-tmpl extension
+// getTemplate walks the templates' directory, filtering non-tmpl extension
 // files, and parsing all the templates found (ensuring they must parse).
 func getTemplate(tmplDir string) *template.Template {
 	var templateFiles []string
-	filepath.Walk(tmplDir, func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk(tmplDir, func(path string, info os.FileInfo, err error) error {
 		if filepath.Ext(path) == ".tmpl" {
 			templateFiles = append(templateFiles, path)
 		}
 		return nil
 	})
-	template, err := template.ParseFiles(templateFiles...)
+
+	if err != nil {
+		log.Print(err)
+	}
+
+	myTemplate, err := template.ParseFiles(templateFiles...)
 	if err != nil {
 		log.Fatalf("Error parsing template files: %s", err)
 	}
-	return template
+	return myTemplate
 }
 
 // renderPages iterates over the given pages and renders each element.
@@ -246,7 +251,7 @@ func makeDirectoryIfNotExists(path string) error {
 // Markdown files we generated and proceeds to append the required template
 // syntax that the tfplugindocs tool needs.
 func appendSyntaxToFiles(tempDir string) {
-	filepath.Walk(tempDir, func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk(tempDir, func(path string, info os.FileInfo, err error) error {
 		if filepath.Ext(path) == ".tmpl" {
 			// open file for appending and in write-only mode
 			f, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY, 0644)
@@ -263,6 +268,9 @@ func appendSyntaxToFiles(tempDir string) {
 		}
 		return nil
 	})
+	if err != nil {
+		log.Print(err)
+	}
 }
 
 // backupTemplatesDir renames the /templates directory.
@@ -357,6 +365,7 @@ func CopyFile(src, dst string) (err error) {
 // CopyDir recursively copies a directory tree, attempting to preserve permissions.
 // Source directory must exist, destination directory must *not* exist.
 // Symlinks are ignored and skipped.
+//goland:noinspection GoUnusedExportedFunction
 func CopyDir(src string, dst string) (err error) {
 	src = filepath.Clean(src)
 	dst = filepath.Clean(dst)

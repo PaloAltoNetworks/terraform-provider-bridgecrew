@@ -1,1 +1,1 @@
-data "bridgecrew_errors" "all" {}
+#data "bridgecrew_errors" "all" {}

@@ -66,7 +66,7 @@ func ValidateSeverity(val interface{}, key string) (warns []string, errs []error
 	return
 }
 
-//ValidateCategory permits only supported Cateoories
+//ValidateCategory permits only supported Categories
 func ValidateCategory(val interface{}, key string) (warns []string, errs []error) {
 	switch val.(string) {
 	case

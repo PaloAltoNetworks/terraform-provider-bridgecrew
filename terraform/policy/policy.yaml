@@ -1,8 +1,8 @@
 ---
 metadata:
   name: "Ensure this check name is long enough to describe it" #give your custom policy a unique name
-  guidelines: "This needs to be long enough to describe it and outline any solutiuon that is required" #add text that explains the configuration the policy looks for, its implications, and how to fix it
-  category: "general" #choose one: "general"/"elaticsearch"/"iam"/"kubernetes"/"logging"/"monitoring"/"networking"/"public"/"secrets"/"serverless"/"storage"
+  guidelines: "This needs to be long enough to describe it and outline any solution that is required" #add text that explains the configuration the policy looks for, its implications, and how to fix it
+  category: "general" #choose one: "general"/"elasticsearch"/"iam"/"kubernetes"/"logging"/"monitoring"/"networking"/"public"/"secrets"/"serverless"/"storage"
   severity: "low" #choose one: "critical"/"high"/"medium"/"low"
 scope:
   provider: "aws" #choose one: "aws"/"azure"/"gcp"

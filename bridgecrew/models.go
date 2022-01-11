@@ -48,12 +48,12 @@ type Benchmark struct {
 	Ciseksv11        []string `json:"CIS EKS V11,omitempty"`
 }
 
-// Account is a child object to Policy
-type Account struct {
-	repository     string
-	amounts        Amount
-	lastupdatedate string
-}
+//// Account is a child object to Policy
+//type Account struct {
+//	repository     string
+//	amounts        Amount
+//	lastupdatedate string
+//}
 
 // Amount is a sub-object of Account
 type Amount struct {

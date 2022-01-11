@@ -9,7 +9,7 @@ jobs:
   test:
     ## We want to define a strategy for our job
     strategy:
-      ## this will contain a matrix of all of the combinations
+      ## this will contain a matrix of all the combinations
       ## we wish to test again:
       matrix:
         go-version: [1.16.x]
@@ -27,7 +27,7 @@ jobs:
       with:
         go-version: ${{ matrix.go-version }}
 
-    ## checks out our code locally so we can work with the files
+    ## checks out our code locally, so we can work with the files
     - name: Checkout code
       uses: actions/checkout@v2
 

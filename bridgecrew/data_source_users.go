@@ -12,7 +12,6 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	//	"github.com/karlseguin/typed"
 )
 
 func dataSourceUsers() *schema.Resource {
@@ -88,7 +87,7 @@ func dataSourceUsersRead(ctx context.Context, d *schema.ResourceData, m interfac
 
 	body, _ := ioutil.ReadAll(r.Body)
 	var jsonMap []map[string]interface{}
-	json.Unmarshal(body, &jsonMap)
+	err = json.Unmarshal(body, &jsonMap)
 
 	if err != nil {
 		diagnostics = append(diagnostics, diag.Diagnostic{
@@ -112,7 +111,7 @@ func dataSourceUsersRead(ctx context.Context, d *schema.ResourceData, m interfac
 
 func flattenUserData(Users *[]map[string]interface{}) []interface{} {
 	if Users != nil {
-		ois := make([]interface{}, len(*Users), len(*Users))
+		ois := make([]interface{}, len(*Users))
 		for i, User := range *Users {
 			oi := make(map[string]interface{})
 			oi["role"] = User["role"]

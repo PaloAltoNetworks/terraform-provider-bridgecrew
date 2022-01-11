@@ -302,7 +302,7 @@ func resourceComplexPolicyCreate(ctx context.Context, d *schema.ResourceData, m 
 		return diag.FromErr(err)
 	}
 
-	newResults, d2, fail := VerifyReturn(err, body)
+	newResults, d2, fail := VerifyReturn(body)
 	if fail {
 		return d2
 	}
@@ -404,6 +404,7 @@ func setComplexConditions(d *schema.ResourceData) (ConditionQuery, error) {
 }
 
 func resourceComplexPolicyRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	var diags diag.Diagnostics
 	client := &http.Client{Timeout: 60 * time.Second}
 
 	policyID := d.Id()
@@ -434,29 +435,28 @@ func resourceComplexPolicyRead(ctx context.Context, d *schema.ResourceData, m in
 		return diag.FromErr(err)
 	}
 
-	d.Set("cloud_provider", strings.ToLower(typedjson["provider"].(string)))
-	d.Set("title", typedjson["title"].(string))
-	d.Set("severity", strings.ToLower(typedjson["severity"].(string)))
-	d.Set("category", strings.ToLower(typedjson["category"].(string)))
-	d.Set("frameworks", typedjson["frameworks"])
+	err = d.Set("cloud_provider", strings.ToLower(typedjson["provider"].(string)))
+	diags = LogAppendError(err, diags)
+
+	err = d.Set("title", typedjson["title"].(string))
+	diags = LogAppendError(err, diags)
+
+	err = d.Set("severity", strings.ToLower(typedjson["severity"].(string)))
+	diags = LogAppendError(err, diags)
+
+	err = d.Set("category", strings.ToLower(typedjson["category"].(string)))
+	diags = LogAppendError(err, diags)
+
+	err = d.Set("frameworks", typedjson["frameworks"])
+	diags = LogAppendError(err, diags)
 
 	err = d.Set("guidelines", typedjson["guideline"])
-	if err != nil {
-		return diag.FromErr(err)
-	}
+	diags = LogAppendError(err, diags)
 
-	//myconditions should be an array it currently a map
-	//hence this fudge
-	//todo: once you start passing around conconditionQuerydition arrays
-	//this can go
 	myConditions := make([]interface{}, 1)
 	myConditions[0] = typedjson["conditionQuery"]
 	err = d.Set("conditionquery", myConditions)
-	if err != nil {
-		return diag.FromErr(err)
-	}
-
-	var diags diag.Diagnostics
+	diags = LogAppendError(err, diags)
 
 	return diags
 }
@@ -503,12 +503,16 @@ func resourceComplexPolicyUpdate(ctx context.Context, d *schema.ResourceData, m 
 			return diag.FromErr(err)
 		}
 
-		_, d2, fail := VerifyReturn(err, body)
+		_, d2, fail := VerifyReturn(body)
 		if fail {
 			return d2
 		}
 
-		d.Set("last_updated", time.Now().Format(time.RFC850))
+		err = d.Set("last_updated", time.Now().Format(time.RFC850))
+
+		if err != nil {
+			return diag.FromErr(err)
+		}
 	}
 	return resourceComplexPolicyRead(ctx, d, m)
 }

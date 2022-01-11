@@ -60,6 +60,7 @@ func dataSourceIntegrations() *schema.Resource {
 	}
 }
 
+//goland:noinspection GoUnusedParameter
 func dataSourceIntegrationRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	params := RequestParams{"%s/integrations", "v1", "GET"}
 
@@ -119,7 +120,7 @@ func dataSourceIntegrationRead(ctx context.Context, d *schema.ResourceData, m in
 
 func flattenIntegrationData(Integrations *[]map[string]interface{}) []interface{} {
 	if Integrations != nil {
-		ois := make([]interface{}, len(*Integrations), len(*Integrations))
+		ois := make([]interface{}, len(*Integrations))
 		for i, Integration := range *Integrations {
 			oi := make(map[string]interface{})
 			oi["enable"] = Integration["enable"]
@@ -130,11 +131,11 @@ func flattenIntegrationData(Integrations *[]map[string]interface{}) []interface{
 
 			//cheat and use json
 			jsoned, _ := json.Marshal(Integration["params"])
-			oi["params"] = (string(jsoned))
+			oi["params"] = string(jsoned)
 
 			//and again
 			jsdetails, _ := json.Marshal(Integration["integration_details"])
-			oi["integration_details"] = (string(jsdetails))
+			oi["integration_details"] = string(jsdetails)
 			ois[i] = oi
 		}
 		return ois

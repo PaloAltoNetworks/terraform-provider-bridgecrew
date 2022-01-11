@@ -132,6 +132,7 @@ func dataSourcePolicies() *schema.Resource {
 	}
 }
 
+//goland:noinspection GoUnusedParameter
 func dataSourcePolicyRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	params := RequestParams{"%s/policies/table/data", "v1", "GET"}
 
@@ -190,7 +191,7 @@ func dataSourcePolicyRead(ctx context.Context, d *schema.ResourceData, m interfa
 
 func flattenPolicyData(Policies *[]map[string]interface{}) []interface{} {
 	if Policies != nil {
-		ois := make([]interface{}, len(*Policies), len(*Policies))
+		ois := make([]interface{}, len(*Policies))
 		for i, Policy := range *Policies {
 			oi := make(map[string]interface{})
 

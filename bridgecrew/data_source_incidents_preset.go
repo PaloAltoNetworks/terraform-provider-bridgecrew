@@ -136,6 +136,7 @@ func dataSourceIncidentsPreset() *schema.Resource {
 	}
 }
 
+//goland:noinspection GoUnusedParameter
 func dataSourceIncidentsPresetRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	params := RequestParams{"%s/incidents/preset", "v2", "GET"}
 
@@ -162,6 +163,10 @@ func dataSourceIncidentsPresetRead(ctx context.Context, d *schema.ResourceData, 
 		log.Fatal("Failed to parse data")
 	}
 
+	if Presets["message"] != nil {
+		log.Fatal(Presets["message"].(string))
+	}
+
 	flatRepos := flattenIncidentsPresetData(&Presets)
 
 	if err := d.Set("presets", flatRepos); err != nil {
@@ -177,7 +182,7 @@ func dataSourceIncidentsPresetRead(ctx context.Context, d *schema.ResourceData, 
 func flattenIncidentsPresetData(Presets *map[string]interface{}) []interface{} {
 	if Presets != nil {
 		data := (*Presets)["data"].([]interface{})
-		ois := make([]interface{}, len(data), len(data))
+		ois := make([]interface{}, len(data))
 
 		for i, Preset := range data {
 			rawdata := Preset.(map[string]interface{})
@@ -186,9 +191,12 @@ func flattenIncidentsPresetData(Presets *map[string]interface{}) []interface{} {
 			oi["description"] = rawdata["description"].(string)
 			oi["id"] = rawdata["id"].(string)
 			oi["counter"] = rawdata["counter"].(float64)
-			oi["isselected"] = rawdata["isSelected"].(bool)
 
-			filters := make([]interface{}, 1, 1)
+			if oi["isselected"] != nil {
+				oi["isselected"] = rawdata["isSelected"].(bool)
+			}
+
+			filters := make([]interface{}, 1)
 			if rawdata["filters"] != nil {
 				raw := rawdata["filters"].(map[string]interface{})
 				myfilter := make(map[string]interface{})
@@ -206,7 +214,7 @@ func flattenIncidentsPresetData(Presets *map[string]interface{}) []interface{} {
 				}
 
 				if raw["range"] != nil {
-					ranges := make([]interface{}, 1, 1)
+					ranges := make([]interface{}, 1)
 					myrange := raw["range"].(map[string]interface{})
 					ranges[0] = myrange
 					myfilter["range"] = ranges

@@ -1,6 +1,6 @@
 
 
-resource "bridgecrew_policy" "nofile" {
+resource "bridgecrew_policy" "no_file" {
   cloud_provider = "bogus"
 
   file = "${path.module}/policy/nofile.yaml"

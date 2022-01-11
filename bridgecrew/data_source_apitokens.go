@@ -48,6 +48,7 @@ func dataSourceApitokens() *schema.Resource {
 	}
 }
 
+//goland:noinspection GoUnusedParameter,GoLinter,GoLinter
 func dataSourceApitokensRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	params := RequestParams{"%s/api-tokens", "v1", "GET"}
 
@@ -88,7 +89,7 @@ func dataSourceApitokensRead(ctx context.Context, d *schema.ResourceData, m inte
 
 func flattenApitokensData(Apitokens *[]map[string]interface{}) []interface{} {
 	if Apitokens != nil {
-		ois := make([]interface{}, len(*Apitokens), len(*Apitokens))
+		ois := make([]interface{}, len(*Apitokens))
 
 		for i, Apitoken := range *Apitokens {
 			oi := make(map[string]interface{})

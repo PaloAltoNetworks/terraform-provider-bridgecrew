@@ -104,7 +104,7 @@ func dataSourceSuppressionRead(ctx context.Context, d *schema.ResourceData, m in
 
 func flattenSuppressionData(Suppressions *[]map[string]interface{}) []interface{} {
 	if Suppressions != nil {
-		ois := make([]interface{}, len(*Suppressions), len(*Suppressions))
+		ois := make([]interface{}, len(*Suppressions))
 
 		for i, Suppression := range *Suppressions {
 			oi := make(map[string]interface{})

@@ -57,6 +57,7 @@ func dataSourceErrors() *schema.Resource {
 	}
 }
 
+//goland:noinspection GoUnusedParameter
 func dataSourceErrorRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	params := RequestParams{"%s/errors/gitBlameAuthors", "v1", "GET"}
 
@@ -124,7 +125,7 @@ func dataSourceErrorRead(ctx context.Context, d *schema.ResourceData, m interfac
 
 func flattenErrorData(Errors *[]map[string]interface{}) []interface{} {
 	if Errors != nil {
-		ois := make([]interface{}, len(*Errors), len(*Errors))
+		ois := make([]interface{}, len(*Errors))
 
 		for i, Error := range *Errors {
 			oi := make(map[string]interface{})

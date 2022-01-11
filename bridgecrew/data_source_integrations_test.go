@@ -1,7 +1,6 @@
 package bridgecrew
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
@@ -20,8 +19,7 @@ func TestAccDataSourceIntegrations(t *testing.T) {
 }
 
 func testAccDataSourceIntegrations() string {
-	return fmt.Sprintf(
-		`
-data "bridgecrew_integrations" "test" {
-}`)
+	return `
+	data "bridgecrew_integrations" "test" {
+	}`
 }

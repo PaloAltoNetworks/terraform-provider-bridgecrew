@@ -48,6 +48,7 @@ func dataSourceApitokensByCustomer() *schema.Resource {
 	}
 }
 
+//goland:noinspection GoUnusedParameter,GoLinter
 func dataSourceApitokensByCustomerRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	params := RequestParams{"%s/api-tokens/admin", "v1", "GET"}
 

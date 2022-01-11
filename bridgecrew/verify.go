@@ -27,9 +27,9 @@ func CheckYAMLString(yamlString interface{}) (string, error) {
 }
 
 // VerifyReturn Looks at the return object from the Platform
-func VerifyReturn(err error, body []byte) (*Result, diag.Diagnostics, bool) {
+func VerifyReturn(body []byte) (*Result, diag.Diagnostics, bool) {
 	newResults := &Result{}
-	err = json.Unmarshal([]byte(body), newResults)
+	err := json.Unmarshal(body, newResults)
 
 	if err != nil {
 		errStr := errors.New("platform failed to return ID")

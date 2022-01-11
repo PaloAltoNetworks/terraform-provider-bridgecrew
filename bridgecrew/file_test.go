@@ -1,6 +1,7 @@
 package bridgecrew
 
 import (
+	"log"
 	"os"
 	"reflect"
 	"testing"
@@ -13,7 +14,11 @@ func Test_loadFileContent(t *testing.T) {
 
 	os.Remove("hello-world.txt")
 	contents := []byte("hello\ngo\n")
-	os.WriteFile("hello-world.txt", contents, 0644)
+	err := os.WriteFile("hello-world.txt", contents, 0644) //nolint:gosec
+
+	if err != nil {
+		log.Print(err)
+	}
 
 	d1, _ := os.ReadFile("hello-world.txt")
 

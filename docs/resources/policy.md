@@ -21,7 +21,7 @@ For more details on this API see their online API documentation <https://docs.br
 Basic usage:
 
 ```hcl
-resource "bridgecrew_policy" "mypolicy" {
+resource "bridgecrew_policy" "policy" {
    cloud_provider = "aws"
    severity       = "critical"
    category       = "logging"
@@ -42,7 +42,7 @@ resource "bridgecrew_policy" "mypolicy" {
 You can import existing platform policies into Terraform code.
 
 ```
-terraform import bridgecrew_policy.imported mypolicyid
+terraform import bridgecrew_policy.imported policyid
 ```
 
 You can view the policy id, either by using the API docs policy list feature:

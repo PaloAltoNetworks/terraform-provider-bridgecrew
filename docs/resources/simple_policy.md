@@ -56,7 +56,7 @@ resource "bridgecrew_simple_policy" "new" {
 You can import existing platform policies into Terraform code.
 
 ```
-terraform import bridgecrew_simple_policy.imported mypolicyid
+terraform import bridgecrew_simple_policy.imported policyid
 ```
 
 You can view the policy id, either by using the API docs policy list feature:

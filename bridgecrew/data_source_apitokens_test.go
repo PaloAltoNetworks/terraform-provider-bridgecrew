@@ -1,7 +1,6 @@
 package bridgecrew
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
@@ -20,10 +19,9 @@ func TestAccDataApiTokens(t *testing.T) {
 }
 
 func testAccDataAPITokens() string {
-	return fmt.Sprintf(
-		`
-data "bridgecrew_apitokens" "test" {
-}`)
+	return `
+	data "bridgecrew_apitokens" "test" {
+	}`
 }
 
 func TestAccAPITokensDataSource_basic(t *testing.T) {

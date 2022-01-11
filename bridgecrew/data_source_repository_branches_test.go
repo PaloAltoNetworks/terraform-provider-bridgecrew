@@ -1,7 +1,6 @@
 package bridgecrew
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
@@ -20,9 +19,8 @@ func TestAccDataSourceRepositoryBranches(t *testing.T) {
 }
 
 func testAccDataSourceRepositoryBranches() string {
-	return fmt.Sprintf(
-		`
-data "bridgecrew_repository_branches" "test" {
-   target="cfngoat"
-}`)
+	return `
+	data "bridgecrew_repository_branches" "test" {
+	   target="cfngoat"
+	}`
 }
