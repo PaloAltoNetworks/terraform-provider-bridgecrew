@@ -122,16 +122,8 @@ func dataSourceIncidentRead(ctx context.Context, d *schema.ResourceData, m inter
 		path := fmt.Sprintf("/incidents?limit=%d&offset=%d", limit, offset)
 		params := RequestParams{"%s" + path, "v2", "POST"}
 
-		client, req, tempDiagnostics, done, err := authClient(params, configure)
+		client, req, tempDiagnostics, done := authClient(params, configure, nil)
 		diagnostics = tempDiagnostics
-
-		if err != nil {
-			diagnostics = append(diagnostics, diag.Diagnostic{
-				Severity: diag.Error,
-				Summary:  fmt.Sprintf("Failed at authClient %s \n", err.Error()),
-			})
-			return diagnostics
-		}
 
 		if done {
 			return diagnostics
@@ -148,7 +140,7 @@ func dataSourceIncidentRead(ctx context.Context, d *schema.ResourceData, m inter
 			return diagnostics
 		}
 
-		//goland:noinspection GoUnhandledErrorResult
+		//goland:noinspection GoUnhandledErrorResult,GoDeferInLoop
 		defer r.Body.Close()
 
 		body, _ := ioutil.ReadAll(r.Body)

@@ -53,7 +53,7 @@ func dataSourceApitokensByCustomerRead(ctx context.Context, d *schema.ResourceDa
 	params := RequestParams{"%s/api-tokens/admin", "v1", "GET"}
 
 	configure := m.(ProviderConfig)
-	client, req, diagnostics, done, err := authClient(params, configure)
+	client, req, diagnostics, done := authClient(params, configure, nil)
 
 	if done {
 		return diagnostics

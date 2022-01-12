@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"net/http"
 	"path/filepath"
 	"strings"
 	"time"
@@ -155,7 +154,6 @@ func resourcePolicy() *schema.Resource {
 
 func resourcePolicyCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 
-	client := &http.Client{Timeout: 60 * time.Second}
 	var diags diag.Diagnostics
 
 	myPolicy, err := setPolicy(d)
@@ -169,18 +167,14 @@ func resourcePolicyCreate(ctx context.Context, d *schema.ResourceData, m interfa
 		return diag.FromErr(err)
 	}
 
-	configure := m.(ProviderConfig)
-	url := configure.URL + "/api/v1/policies"
 	payload := strings.NewReader(string(jsPolicy))
+	params := RequestParams{"%s/policies", "v1", "POST"}
+	configure := m.(ProviderConfig)
+	client, req, diagnostics, done := authClient(params, configure, payload)
 
-	req, err := http.NewRequest("POST", url, payload)
-	if err != nil {
-		return diag.FromErr(err)
+	if done {
+		return diagnostics
 	}
-
-	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("authorization", configure.Token)
 
 	res, err := client.Do(req)
 	if err != nil {
@@ -243,21 +237,16 @@ func setPolicy(d *schema.ResourceData) (Policy, error) {
 
 func resourcePolicyRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	client := &http.Client{Timeout: 60 * time.Second}
 
 	policyID := d.Id()
 
+	params := RequestParams{"%s/policies/" + policyID, "v1", "GET"}
 	configure := m.(ProviderConfig)
+	client, req, diagnostics, done := authClient(params, configure, nil)
 
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s/api/v1/policies/%s", configure.URL, policyID), nil)
-	if err != nil {
-		return diag.FromErr(err)
+	if done {
+		return diagnostics
 	}
-
-	// add authorization header to the req
-	req.Header.Add("authorization", configure.Token)
-	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Content-Type", "application/json")
 
 	r, err := client.Do(req)
 	if err != nil {
@@ -291,8 +280,6 @@ func resourcePolicyRead(ctx context.Context, d *schema.ResourceData, m interface
 
 func resourcePolicyUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 
-	client := &http.Client{Timeout: 60 * time.Second}
-
 	policyID := d.Id()
 	if policyChange(d) {
 		myPolicy, err := setPolicy(d)
@@ -306,18 +293,15 @@ func resourcePolicyUpdate(ctx context.Context, d *schema.ResourceData, m interfa
 			return diag.FromErr(err)
 		}
 
-		configure := m.(ProviderConfig)
-
 		payload := strings.NewReader(string(jsPolicy))
-		req, err := http.NewRequest("PUT", fmt.Sprintf("%s/api/v1/policies/%s", configure.URL, policyID), payload)
 
-		if err != nil {
-			return diag.FromErr(err)
+		params := RequestParams{"%s/policies/" + policyID, "v1", "PUT"}
+		configure := m.(ProviderConfig)
+		client, req, diagnostics, done := authClient(params, configure, payload)
+
+		if done {
+			return diagnostics
 		}
-
-		req.Header.Add("Accept", "application/json")
-		req.Header.Add("Content-Type", "application/json")
-		req.Header.Add("authorization", configure.Token)
 
 		res, err := client.Do(req)
 		if err != nil {
@@ -355,21 +339,18 @@ func policyChange(d *schema.ResourceData) bool {
 }
 
 func resourcePolicyDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	client := &http.Client{Timeout: 60 * time.Second}
 
 	// Warning or errors can be collected in a slice type
 	var diags diag.Diagnostics
 
 	policyID := d.Id()
 	configure := m.(ProviderConfig)
-	req, err := http.NewRequest("DELETE", fmt.Sprintf("%s/api/v1/policies/%s", configure.URL, policyID), nil)
-	if err != nil {
-		return diag.FromErr(err)
-	}
+	params := RequestParams{"%s/policies/" + policyID, "v1", "DELETE"}
+	client, req, diagnostics, done := authClient(params, configure, nil)
 
-	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("authorization", configure.Token)
+	if done {
+		return diagnostics
+	}
 
 	res, err := client.Do(req)
 	if err != nil {

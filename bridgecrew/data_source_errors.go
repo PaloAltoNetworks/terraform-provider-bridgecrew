@@ -62,14 +62,7 @@ func dataSourceErrorRead(ctx context.Context, d *schema.ResourceData, m interfac
 	params := RequestParams{"%s/errors/gitBlameAuthors", "v1", "GET"}
 
 	configure := m.(ProviderConfig)
-	client, req, diagnostics, done, err := authClient(params, configure)
-
-	if err != nil {
-		diagnostics = append(diagnostics, diag.Diagnostic{
-			Severity: diag.Error,
-			Summary:  fmt.Sprintf("Failed at authClient %s \n", err.Error()),
-		})
-	}
+	client, req, diagnostics, done := authClient(params, configure, nil)
 
 	if done {
 		return diagnostics

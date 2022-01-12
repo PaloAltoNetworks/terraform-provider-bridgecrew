@@ -27,11 +27,8 @@ func Test_authClient(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, got1, got2, got3, err := authClient(tt.args.params, tt.args.configure)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("authClient() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
+			got, got1, got2, got3 := authClient(tt.args.params, tt.args.configure, nil)
+
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("authClient() got = %v, want %v", got, tt.want)
 			}

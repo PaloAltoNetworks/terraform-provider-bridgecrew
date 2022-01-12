@@ -141,7 +141,7 @@ func dataSourceIncidentsPresetRead(ctx context.Context, d *schema.ResourceData, 
 	params := RequestParams{"%s/incidents/preset", "v2", "GET"}
 
 	configure := m.(ProviderConfig)
-	client, req, diagnostics, done, err := authClient(params, configure)
+	client, req, diagnostics, done := authClient(params, configure, nil)
 
 	if done {
 		return diagnostics

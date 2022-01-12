@@ -107,14 +107,7 @@ func dataSourceIncidentInfoRead(ctx context.Context, d *schema.ResourceData, m i
 	params := RequestParams{"%s/incidents/info", "v2", "POST"}
 
 	configure := m.(ProviderConfig)
-	client, req, diagnostics, done, err := authClient(params, configure)
-
-	if err != nil {
-		diagnostics = append(diagnostics, diag.Diagnostic{
-			Severity: diag.Error,
-			Summary:  fmt.Sprintf("Failed at authClient %s \n", err.Error()),
-		})
-	}
+	client, req, diagnostics, done := authClient(params, configure, nil)
 
 	if done {
 		return diagnostics

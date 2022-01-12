@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"net/http"
 	"strings"
 	"time"
 
@@ -255,7 +254,6 @@ func resourceComplexPolicy() *schema.Resource {
 
 func resourceComplexPolicyCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 
-	client := &http.Client{Timeout: 60 * time.Second}
 	var diags diag.Diagnostics
 
 	myPolicy, err := setComplexPolicy(d)
@@ -269,19 +267,14 @@ func resourceComplexPolicyCreate(ctx context.Context, d *schema.ResourceData, m 
 		return diag.FromErr(err)
 	}
 
-	configure := m.(ProviderConfig)
-	url := configure.URL + "/api/v1/policies"
 	payload := strings.NewReader(string(jsPolicy))
+	params := RequestParams{"%s/policies", "v1", "POST"}
+	configure := m.(ProviderConfig)
+	client, req, diagnostics, done := authClient(params, configure, payload)
 
-	req, err := http.NewRequest("POST", url, payload)
-
-	if err != nil {
-		return diag.FromErr(err)
+	if done {
+		return diagnostics
 	}
-
-	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("authorization", configure.Token)
 
 	res, err := client.Do(req)
 	if err != nil {
@@ -405,21 +398,16 @@ func setComplexConditions(d *schema.ResourceData) (ConditionQuery, error) {
 
 func resourceComplexPolicyRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	client := &http.Client{Timeout: 60 * time.Second}
 
 	policyID := d.Id()
 
+	params := RequestParams{"%s/policies/" + policyID, "v1", "GET"}
 	configure := m.(ProviderConfig)
+	client, req, diagnostics, done := authClient(params, configure, nil)
 
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s/api/v1/policies/%s", configure.URL, policyID), nil)
-	if err != nil {
-		return diag.FromErr(err)
+	if done {
+		return diagnostics
 	}
-
-	// add authorization header to the req
-	req.Header.Add("authorization", configure.Token)
-	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Content-Type", "application/json")
 
 	r, err := client.Do(req)
 	if err != nil {
@@ -463,8 +451,6 @@ func resourceComplexPolicyRead(ctx context.Context, d *schema.ResourceData, m in
 
 func resourceComplexPolicyUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 
-	client := &http.Client{Timeout: 60 * time.Second}
-
 	policyID := d.Id()
 	if complexPolicyChange(d) {
 		myPolicy, err := setComplexPolicy(d)
@@ -478,18 +464,15 @@ func resourceComplexPolicyUpdate(ctx context.Context, d *schema.ResourceData, m 
 			return diag.FromErr(err)
 		}
 
-		configure := m.(ProviderConfig)
-
 		payload := strings.NewReader(string(jsPolicy))
-		req, err := http.NewRequest("PUT", fmt.Sprintf("%s/api/v1/policies/%s", configure.URL, policyID), payload)
 
-		if err != nil {
-			return diag.FromErr(err)
+		params := RequestParams{"%s/policies/" + policyID, "v1", "PUT"}
+		configure := m.(ProviderConfig)
+		client, req, diagnostics, done := authClient(params, configure, payload)
+
+		if done {
+			return diagnostics
 		}
-
-		req.Header.Add("Accept", "application/json")
-		req.Header.Add("Content-Type", "application/json")
-		req.Header.Add("authorization", configure.Token)
 
 		res, err := client.Do(req)
 		if err != nil {

@@ -26,6 +26,7 @@ data "bridgecrew_repository_branches" "branches" {
 
 ### Required
 
+- **sourcetype** (String)
 - **target** (String)
 
 ### Optional
