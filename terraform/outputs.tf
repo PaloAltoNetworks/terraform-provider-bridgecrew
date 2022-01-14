@@ -57,3 +57,7 @@ output "presets" {
 output "info" {
   value = data.bridgecrew_incidents_info.all
 }
+
+output "organisation" {
+  value = data.bridgecrew_organisation.mine
+}

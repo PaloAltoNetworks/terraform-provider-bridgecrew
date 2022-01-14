@@ -130,6 +130,10 @@ func main() {
 			name: "data_source_incidents_info",
 			path: tempDir + "/data-sources/incidents_info.md.tmpl",
 		},
+		{
+			name: "data_source_organisation",
+			path: tempDir + "/data-sources/organisation.md.tmpl",
+		},
 	}
 
 	var resourcePages = []Page{
