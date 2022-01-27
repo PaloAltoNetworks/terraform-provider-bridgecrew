@@ -1,2 +1,1 @@
-data "bridgecrew_incidents_preset" "all" {
-}
+data "bridgecrew_incidents_preset" "all" {}

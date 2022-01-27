@@ -47,6 +47,12 @@ func resourceComplexPolicy() *schema.Resource {
 				Description:  "Severity category allows you to indicate importance and this value can determine build or PR failure in the platform.",
 				ValidateFunc: ValidateSeverity,
 			},
+			//"pcseverity": {
+			//	Type:        schema.TypeString,
+			//	Optional:    true,
+			//	Description: "PRISMA Severity category allows you to indicate importance and this value can determine build or PR failure in the platform.",
+			//	//ValidateFunc: ValidateSeverity,
+			//},
 			"frameworks": {
 				Type:        schema.TypeList,
 				Description: "Which IAC framework is this policy targeting.",
@@ -63,7 +69,7 @@ func resourceComplexPolicy() *schema.Resource {
 			},
 			"guidelines": {
 				Type:     schema.TypeString,
-				Required: true,
+				Optional: true,
 				Description: "A detailed description helps you understand why the check was written and should include details on how " +
 					"to fix the violation. The field must more than 50 chars in it, to encourage detail.",
 				ValidateFunc: ValidateGuidelines,

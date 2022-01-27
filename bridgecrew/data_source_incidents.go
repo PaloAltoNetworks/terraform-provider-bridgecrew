@@ -58,6 +58,18 @@ func dataSourceIncidents() *schema.Resource {
 							Type:     schema.TypeBool,
 							Computed: true,
 						},
+						"provider": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"resource_types": {
+							Type:     schema.TypeList,
+							Required: true,
+							Elem: &schema.Schema{
+								Type:    schema.TypeString,
+								Default: "",
+							},
+						},
 						"benchmarks": {
 							Type:        schema.TypeList,
 							Description: "The compliance framework this check/incident is against",
@@ -189,6 +201,8 @@ func flattenIncidentData(Incidents *[]map[string]interface{}) []interface{} {
 			oi["category"] = Incident["category"]
 			oi["guideline"] = Incident["guideline"]
 			oi["iscustom"] = Incident["isCustom"]
+			oi["provider"] = Incident["provider"]
+			oi["resource_types"] = Incident["resourceTypes"]
 			if keyExists(Incident, "benchmarks") {
 				oi["benchmarks"] = Incident["benchmarks"]
 			}

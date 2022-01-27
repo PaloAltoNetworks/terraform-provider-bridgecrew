@@ -47,6 +47,18 @@ func dataSourcePolicies() *schema.Resource {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
+						"pcseverity": {
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+						"frameworks": {
+							Type:        schema.TypeList,
+							Description: "Which IAC framework is this policy targeting.",
+							Required:    true,
+							Elem: &schema.Schema{
+								Type: schema.TypeString,
+							},
+						},
 						"severity": {
 							Type:     schema.TypeString,
 							Required: true,
@@ -196,7 +208,8 @@ func flattenPolicyData(Policies *[]map[string]interface{}) []interface{} {
 			oi["category"] = Policy["category"] // General
 			oi["guideline"] = Policy["guideline"]
 			oi["iscustom"] = Policy["isCustom"]
-
+			oi["pcseverity"] = Policy["pcSeverity"]
+			oi["frameworks"] = Policy["frameworks"]
 			var accounts []interface{}
 
 			accountsData := Policy["accountsData"].(map[string]interface{})

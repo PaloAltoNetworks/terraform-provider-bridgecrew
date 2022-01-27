@@ -24,7 +24,7 @@ Basic usage:
 resource "bridgecrew_policy" "policy" {
    cloud_provider = "aws"
    severity       = "critical"
-   category       = "logging"
+   category       = "monitoring"
 
    file = "${path.module}/policy/policy.yaml"
 

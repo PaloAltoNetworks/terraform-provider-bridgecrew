@@ -70,7 +70,6 @@ func ValidateSeverity(val interface{}, key string) (warns []string, errs []error
 func ValidateCategory(val interface{}, key string) (warns []string, errs []error) {
 	switch val.(string) {
 	case
-		"logging",
 		"elasticsearch",
 		"general",
 		"storage",
@@ -86,7 +85,7 @@ func ValidateCategory(val interface{}, key string) (warns []string, errs []error
 		return
 	}
 	errs = append(errs,
-		fmt.Errorf("%q Must be one of logging, elasticsearch, general, storage, encryption,"+
+		fmt.Errorf("%q Must be one of elasticsearch, general, storage, encryption,"+
 			" networking, monitoring, kubernetes, serverless, backup_and_recovery, backup_and_recovery, public,"+
 			" or iam", val))
 	return

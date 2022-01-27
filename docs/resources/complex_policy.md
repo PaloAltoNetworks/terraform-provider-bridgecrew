@@ -29,7 +29,7 @@ resource "bridgecrew_complex_policy" "new" {
   cloud_provider = "aws"
   title          = "my second test also needs to be long enough"
   severity       = "critical"
-  category       = "logging"
+  category       = "monitoring"
   frameworks     = ["Terraform"]
 
   conditionquery {
@@ -92,7 +92,6 @@ You can view the policy id, either by using the API docs policy list feature:
 - **category** (String) Check category for grouping similar checks.
 - **cloud_provider** (String) The Cloud provider this is for e.g. - aws, gcp, azure.
 - **frameworks** (List of String) Which IAC framework is this policy targeting.
-- **guidelines** (String) A detailed description helps you understand why the check was written and should include details on how to fix the violation. The field must more than 50 chars in it, to encourage detail.
 - **severity** (String) Severity category allows you to indicate importance and this value can determine build or PR failure in the platform.
 - **title** (String) The title of the check, needs to be longer than 20 chars - an effort to ensure detailed names.
 
@@ -100,6 +99,7 @@ You can view the policy id, either by using the API docs policy list feature:
 
 - **benchmarks** (Block Set, Max: 1) This associates the check to one or many compliance frameworks. (see [below for nested schema](#nestedblock--benchmarks))
 - **conditionquery** (Block Set, Max: 1) The actual query. (see [below for nested schema](#nestedblock--conditionquery))
+- **guidelines** (String) A detailed description helps you understand why the check was written and should include details on how to fix the violation. The field must more than 50 chars in it, to encourage detail.
 - **last_updated** (String)
 
 ### Read-Only

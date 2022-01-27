@@ -2,7 +2,7 @@ resource "bridgecrew_complex_policy" "new" {
   cloud_provider = "aws"
   title          = "my second test ${random_string.complex.id}"
   severity       = "critical"
-  category       = "logging"
+  category       = "monitoring"
   frameworks     = ["Terraform"]
 
   conditionquery {

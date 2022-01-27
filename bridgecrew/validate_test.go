@@ -100,7 +100,6 @@ func TestValidateSeverity(t *testing.T) {
 
 func TestValidateCategory(t *testing.T) {
 	validValues := []string{
-		"logging",
 		"elasticsearch",
 		"general",
 		"storage",

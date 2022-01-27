@@ -27,7 +27,7 @@ resource "bridgecrew_simple_policy" "new" {
   cloud_provider = "aws"
   title          = "Ensure that this title is meaningfully long (20 chars)"
   severity       = "critical"
-  category       = "logging"
+  category       = "monitoring"
   frameworks     = ["Terraform"]
 
   // For now only one condition block is valid

@@ -1,2 +1,1 @@
-data "bridgecrew_incidents_info" "all" {
-}
+data "bridgecrew_incidents_info" "all" {}

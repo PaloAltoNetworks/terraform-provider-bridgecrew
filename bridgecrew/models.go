@@ -10,10 +10,11 @@ type Policy struct {
 }
 
 type complexPolicy struct {
-	Provider       string         `json:"provider"`
-	ID             int            `json:"id,omitempty"`
-	Title          string         `json:"title"`
-	Severity       string         `json:"severity"`
+	Provider string `json:"provider"`
+	ID       int    `json:"id,omitempty"`
+	Title    string `json:"title"`
+	Severity string `json:"severity"`
+	//PRISMASeverity string         `json:"pcseverity"`
 	Category       string         `json:"category"`
 	Guidelines     string         `json:"guidelines"`
 	ConditionQuery ConditionQuery `json:"conditions,omitempty"`
@@ -22,10 +23,11 @@ type complexPolicy struct {
 }
 
 type simplePolicy struct {
-	Provider   string     `json:"provider"`
-	ID         int        `json:"id,omitempty"`
-	Title      string     `json:"title"`
-	Severity   string     `json:"severity"`
+	Provider string `json:"provider"`
+	ID       int    `json:"id,omitempty"`
+	Title    string `json:"title"`
+	Severity string `json:"severity"`
+	//PRISMASeverity string     `json:"pcseverity"`
 	Category   string     `json:"category"`
 	Guidelines string     `json:"guidelines"`
 	Conditions Conditions `json:"conditions,omitempty"`

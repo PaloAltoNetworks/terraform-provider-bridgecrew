@@ -18,6 +18,7 @@ output "users" {
 #  value = data.bridgecrew_repository_branches.all
 #}
 
+#api doesnt work - has undefined query params
 #output "errors" {
 #  value = data.bridgecrew_errors.all
 #}

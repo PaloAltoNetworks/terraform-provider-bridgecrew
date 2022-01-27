@@ -3,15 +3,15 @@ resource "bridgecrew_simple_policy" "new" {
   cloud_provider = "aws"
   title          = "my second test ${count.index} ${random_string.new.id}"
   severity       = "critical"
-  category       = "logging"
+  category       = "general"
   frameworks     = ["Terraform"]
 
 
   conditions {
-    resource_types = ["aws_s3_bucket", "aws_instance"]
+    resource_types = ["aws_s3_bucket"]
     cond_type      = "attribute"
     attribute      = "bucket"
-    operator       = "not_equals"
+    operator       = "equals"
     value          = "jimbo2"
   }
 
