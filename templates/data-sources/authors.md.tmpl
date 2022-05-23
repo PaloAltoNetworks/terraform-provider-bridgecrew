@@ -1,0 +1,24 @@
+{{define "data_source_authors"}}---
+layout: "bridgecrew"
+page_title: "Bridgecrew: data_source_authors"
+sidebar_current: "docs-bridgecrew-data_source_authors"
+
+description: |-
+Get a list of all your Bridgecrew platform authors.
+More details on the Bridgecrew API for this datasource are available <https://docs.bridgecrew.io/reference/getgitblameauthors>.
+
+---
+
+# bridgecrew_authors
+
+Use this datasource to get the details of your authors from Bridgecrew.
+
+
+
+
+## Example Usage
+```hcl
+data "bridgecrew_authors" "myauthors" {
+}
+```
+{{end}}

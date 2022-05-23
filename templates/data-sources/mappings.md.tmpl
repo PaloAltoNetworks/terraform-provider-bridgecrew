@@ -1,0 +1,24 @@
+{{define "data_source_mappings"}}---
+layout: "bridgecrew"
+page_title: "Bridgecrew: data_source_mappings"
+sidebar_current: "docs-bridgecrew-data_source_mappings"
+
+description: |-
+Get a list of all your Bridgecrew check mappings.
+More details on the Bridgecrew API for this datasource are available <https://docs.bridgecrew.io/reference/getcheckovmappings>.
+
+---
+
+# bridgecrew_mappings
+
+Use this datasource to get the details of your check mappings.
+
+
+
+
+## Example Usage
+```hcl
+data "bridgecrew_mappings" "all" {
+}
+```
+{{end}}

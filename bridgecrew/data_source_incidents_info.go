@@ -168,7 +168,7 @@ func dataSourceIncidentInfoRead(ctx context.Context, d *schema.ResourceData, m i
 	return diagnostics
 }
 
-//LogAppendError adds error to diagnostic stack
+// LogAppendError adds error to diagnostic stack
 func LogAppendError(check error, diagnostics diag.Diagnostics) diag.Diagnostics {
 	if check != nil {
 		diagnostics = append(diagnostics, diag.Diagnostic{

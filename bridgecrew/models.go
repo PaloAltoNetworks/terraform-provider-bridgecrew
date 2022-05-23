@@ -1,5 +1,15 @@
 package bridgecrew
 
+//type Mapping struct {
+//	Check     string `json:"check"`
+//	Guideline string `json:"guideline,omitempty"`
+//}
+//
+//type IDMap struct {
+//	BcId      string `json:"bcmap,omitempty"`
+//	CheckovId string `json:"checkovid"`
+//}
+
 // The Policy record
 type Policy struct {
 	Provider   string    `json:"provider"`

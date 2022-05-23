@@ -13,6 +13,13 @@ func TestAccUsers(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUsers(),
+				Check: resource.ComposeAggregateTestCheckFunc(
+					resource.TestCheckResourceAttrSet("data.bridgecrew_users.test", "id"),
+					resource.TestCheckResourceAttrSet("data.bridgecrew_users.test", "users.0.customername"),
+					resource.TestCheckResourceAttrSet("data.bridgecrew_users.test", "users.0.email"),
+					resource.TestCheckResourceAttrSet("data.bridgecrew_users.test", "users.0.lastmodified"),
+					resource.TestCheckResourceAttrSet("data.bridgecrew_users.test", "users.0.role"),
+				),
 			},
 		},
 	})

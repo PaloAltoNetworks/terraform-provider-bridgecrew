@@ -1,0 +1,25 @@
+{{define "data_source_tag"}}---
+layout: "bridgecrew"
+page_title: "Bridgecrew: data_source_tag"
+sidebar_current: "docs-bridgecrew-data_source_tag"
+
+description: |-
+Get a tag rule.
+More details on the Bridgecrew API for this datasource are available <https://docs.bridgecrew.io/reference/gettag>.
+
+---
+
+# bridgecrew_tag
+
+Use this datasource to get the details a tag rule, given the tag rule id.
+
+
+
+
+## Example Usage
+```hcl
+data "bridgecrew_tag" "custom" {
+    id="756a0450-f260-4275-9875-30ade35bea27"
+}
+```
+{{end}}

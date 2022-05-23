@@ -1,3 +1,7 @@
+output "mappings" {
+  value = data.bridgecrew_mappings.new
+}
+
 output "integrations" {
   value = data.bridgecrew_integrations.all
 }
@@ -18,10 +22,10 @@ output "users" {
 #  value = data.bridgecrew_repository_branches.all
 #}
 
-#api doesnt work - has undefined query params
-#output "errors" {
-#  value = data.bridgecrew_errors.all
-#}
+
+output "authors" {
+  value = data.bridgecrew_authors.all
+}
 
 output "policy" {
   value = bridgecrew_policy.new
@@ -61,4 +65,8 @@ output "info" {
 
 output "organisation" {
   value = data.bridgecrew_organisation.mine
+}
+
+output "tag" {
+  value = data.bridgecrew_tag.found
 }

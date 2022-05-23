@@ -52,7 +52,7 @@ func ValidateCloudProvider(val interface{}, key string) (warns []string, errs []
 	return
 }
 
-//ValidateSeverity checks that only supported severities can be added.
+// ValidateSeverity checks that only supported severities can be added.
 func ValidateSeverity(val interface{}, key string) (warns []string, errs []error) {
 	switch val.(string) {
 	case
@@ -66,7 +66,7 @@ func ValidateSeverity(val interface{}, key string) (warns []string, errs []error
 	return
 }
 
-//ValidateCategory permits only supported Categories
+// ValidateCategory permits only supported Categories
 func ValidateCategory(val interface{}, key string) (warns []string, errs []error) {
 	switch val.(string) {
 	case
@@ -91,7 +91,7 @@ func ValidateCategory(val interface{}, key string) (warns []string, errs []error
 	return
 }
 
-//ValidateIsYAMLFile is this YAML?
+// ValidateIsYAMLFile is this YAML?
 func ValidateIsYAMLFile(val interface{}, key string) (warns []string, errors []error) {
 
 	code, err := loadFileContent(val.(string))
@@ -106,7 +106,7 @@ func ValidateIsYAMLFile(val interface{}, key string) (warns []string, errors []e
 	return
 }
 
-//ValidateGuidelines is a length check - 50 characters or more please.
+// ValidateGuidelines is a length check - 50 characters or more please.
 func ValidateGuidelines(val interface{}, key string) (warns []string, errs []error) {
 	if len(val.(string)) < 50 {
 		errs = append(errs, fmt.Errorf("%q Guideline should attempt be helpful (gt 50 chars)", val))
@@ -114,7 +114,7 @@ func ValidateGuidelines(val interface{}, key string) (warns []string, errs []err
 	return
 }
 
-//ValidatePolicyTitle is a length check - 20 characters or more please.
+// ValidatePolicyTitle is a length check - 20 characters or more please.
 func ValidatePolicyTitle(val interface{}, key string) (warns []string, errs []error) {
 	if len(val.(string)) < 20 {
 		errs = append(errs, fmt.Errorf("%q Title should attempt be meaningful (gt 20 chars)", val))
@@ -143,4 +143,24 @@ func ValidPolicyJSON(v interface{}, k string) (ws []string, errors []error) {
 func keyExists(decoded map[string]interface{}, key string) bool {
 	val, ok := decoded[key]
 	return ok && val != nil
+}
+
+// ValidateRepository checks that only supported repositories are added
+func ValidateRepository(val interface{}, key string) (warns []string, errs []error) {
+	switch val.(string) {
+	case
+		"Github", "Bitbucket",
+		"Gitlab", "AzureRepos",
+		"cli", "AWS",
+		"Azure", "GCP",
+		"githubEnterprise", "gitlabEnterprise",
+		"bitbucketEnterprise, terraformCloud",
+		"tfcRunTasks, githubActions",
+		"circleci", "codebuild",
+		"jenkins", "kubernetesWorkloads",
+		"Kubernetes", "admissionController":
+		return
+	}
+	errs = append(errs, fmt.Errorf("%q Must be one of aws, gcp, linode, azure, oci, alicloud or digitalocean", val))
+	return
 }

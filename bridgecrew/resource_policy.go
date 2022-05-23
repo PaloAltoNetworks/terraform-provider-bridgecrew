@@ -235,6 +235,7 @@ func setPolicy(d *schema.ResourceData) (Policy, error) {
 	return myPolicy, nil
 }
 
+//goland:noinspection GoUnusedParameter
 func resourcePolicyRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -338,6 +339,7 @@ func policyChange(d *schema.ResourceData) bool {
 		d.HasChange("frameworks")
 }
 
+//goland:noinspection GoUnusedParameter
 func resourcePolicyDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 
 	// Warning or errors can be collected in a slice type

@@ -83,6 +83,14 @@ func main() {
 
 	var dataPages = []Page{
 		{
+			name: "data_source_tag",
+			path: tempDir + "/data-sources/tag.md.tmpl",
+		},
+		{
+			name: "data_source_mappings",
+			path: tempDir + "/data-sources/mappings.md.tmpl",
+		},
+		{
 			name: "data_source_integrations",
 			path: tempDir + "/data-sources/integrations.md.tmpl",
 		},
@@ -115,8 +123,8 @@ func main() {
 			path: tempDir + "/data-sources/suppressions.md.tmpl",
 		},
 		{
-			name: "data_source_errors",
-			path: tempDir + "/data-sources/errors.md.tmpl",
+			name: "data_source_authors",
+			path: tempDir + "/data-sources/authors.md.tmpl",
 		},
 		{
 			name: "data_source_incidents",

@@ -13,6 +13,14 @@ func TestAccDataSourceSuppressions(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceSuppressions(),
+				Check: resource.ComposeAggregateTestCheckFunc(
+					resource.TestCheckResourceAttrSet("data.bridgecrew_suppressions.test", "id"),
+					resource.TestCheckResourceAttrSet("data.bridgecrew_suppressions.test", "suppressions.0.comment"),
+					resource.TestCheckResourceAttrSet("data.bridgecrew_suppressions.test", "suppressions.0.creationdate"),
+					resource.TestCheckResourceAttrSet("data.bridgecrew_suppressions.test", "suppressions.0.id"),
+					resource.TestCheckResourceAttrSet("data.bridgecrew_suppressions.test", "suppressions.0.policyid"),
+					resource.TestCheckResourceAttrSet("data.bridgecrew_suppressions.test", "suppressions.0.suppressiontype"),
+				),
 			},
 		},
 	})
