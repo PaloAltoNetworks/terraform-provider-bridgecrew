@@ -1,7 +1,7 @@
 # terraform-provider-bridgecrew
 
 [![Maintained by Bridgecrew.io](https://img.shields.io/badge/maintained%20by-bridgecrew.io-blueviolet)](https://bridgecrew.io/?utm_source=github&utm_medium=organic_oss&utm_campaign=terraform-provider-bridgecrew)
-[![release](https://github.com/PaloAltoNetworks/terraform-provider-bridgecrew/actions/workflows/release.yml/badge.svg)](https://github.com/PaloAltoNetworks/terraform-provider-bridgecrew/actions/workflows/security.yml)
+[![release](https://github.com/PaloAltoNetworks/terraform-provider-bridgecrew/actions/workflows/release.yml/badge.svg)](https://github.com/PaloAltoNetworks/terraform-provider-bridgecrew/actions/workflows/release.yml)
 [![slack-community](https://img.shields.io/badge/slack-bridgecrew-blueviolet.svg?logo=slack)](https://codifiedsecurity.slack.com/)
 [![Go Report Card](https://goreportcard.com/badge/github.com/PaloAltoNetworks/terraform-provider-bridgecrew)](https://goreportcard.com/report/github.com/PaloAltoNetworks/terraform-provider-bridgecrew)
 [![Go Reference](https://pkg.go.dev/badge/github.com/PaloAltoNetworks/terraform-provider-bridgecrew.svg)](https://pkg.go.dev/github.com/PaloAltoNetworks/terraform-provider-bridgecrew)
