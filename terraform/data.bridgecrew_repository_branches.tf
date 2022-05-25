@@ -1,3 +1,4 @@
-# data "bridgecrew_repository_branches" "all" {
-#  target="terraform-aws-s3"
-# }
+data "bridgecrew_repository_branches" "all" {
+  reponame  = "terraform-aws-cassandra"
+  repoowner = "JamesWoolfenden"
+}

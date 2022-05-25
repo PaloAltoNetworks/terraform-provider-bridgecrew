@@ -18,9 +18,9 @@ output "users" {
   value = data.bridgecrew_users.all
 }
 
-#output "branches" {
-#  value = data.bridgecrew_repository_branches.all
-#}
+output "branches" {
+  value = data.bridgecrew_repository_branches.all
+}
 
 
 output "authors" {

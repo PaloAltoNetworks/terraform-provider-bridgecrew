@@ -13,6 +13,15 @@ func TestAccDataSourceIntegrations(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceIntegrations(),
+				Check: resource.ComposeAggregateTestCheckFunc(
+					resource.TestCheckResourceAttrSet("data.bridgecrew_integrations.test", "integrations.0.id"),
+					resource.TestCheckResourceAttrSet("data.bridgecrew_integrations.test", "integrations.0.enable"),
+					resource.TestCheckResourceAttrSet("data.bridgecrew_integrations.test", "integrations.0.integration_details"),
+					resource.TestCheckResourceAttrSet("data.bridgecrew_integrations.test", "integrations.0.params"),
+					resource.TestCheckResourceAttrSet("data.bridgecrew_integrations.test", "integrations.0.type"),
+					resource.TestCheckResourceAttrSet("data.bridgecrew_integrations.test", "integrations.0.sf_execution_name"),
+					resource.TestCheckResourceAttrSet("data.bridgecrew_integrations.test", "integrations.0.status"),
+				),
 			},
 		},
 	})

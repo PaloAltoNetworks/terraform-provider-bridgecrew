@@ -113,3 +113,16 @@ type User struct {
 	LastModified int64    `json:"last_modified"`
 	CustomerName string   `json:"customer_name"`
 }
+
+// Branch contains a branches used in CICD
+type Branch struct {
+	Name          string `json:"name"`
+	CreationDate  string `json:"creationdate"`
+	DefaultBranch bool   `json:"defaultbranch"`
+}
+
+// Repositories For CICD
+type Repositories struct {
+	Source   string   `json:"source"`
+	Branches []Branch `json:"branches"`
+}

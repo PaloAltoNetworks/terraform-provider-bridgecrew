@@ -16,28 +16,48 @@ func dataSourceRepositoryBranches() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceRepositoryBranchRead,
 		Schema: map[string]*schema.Schema{
-			"repositoriesbranches": {
+			"branches": {
 				Type:     schema.TypeList,
 				Computed: true,
-				Elem:     &schema.Resource{},
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"name": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"creationdate": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"defaultbranch": {
+							Type:     schema.TypeBool,
+							Computed: true,
+						},
+					},
+				},
 			},
-			"target": {
+			"repoowner": {
 				Type:     schema.TypeString,
 				Required: true,
 			},
-			"sourcetype": {
+			"reponame": {
 				Type:     schema.TypeString,
 				Required: true,
+			},
+			"source": {
+				Type:     schema.TypeString,
+				Computed: true,
 			},
 		},
 	}
 }
 
 func dataSourceRepositoryBranchRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	target := d.Get("target")
-	params := RequestParams{"%s/repositories/branches?repoOwner=" + "/" + target.(string), "v1", "GET"}
+	owner := d.Get("repoowner").(string)
+	reponame := d.Get("reponame").(string)
 
-	//todo endpoint doesnt work like this
+	request := "%s/repositories/branches?repoOwner=" + owner + "&repoName=" + reponame
+	params := RequestParams{request, "v1", "GET"}
 
 	configure := m.(ProviderConfig)
 	client, req, diagnostics, done := authClient(params, configure, nil)
@@ -52,26 +72,24 @@ func dataSourceRepositoryBranchRead(ctx context.Context, d *schema.ResourceData,
 		log.Print("Failed at client.Do")
 		return diag.FromErr(err)
 	}
-	//goland:noinspection GoUnhandledErrorResult
+
+	// goland:noinspection GoUnhandledErrorResult
 	defer r.Body.Close()
 
-	log.Print("All data obtained")
-	repositoriesbranches := make([]map[string]interface{}, 0)
+	repositoriesbranches := make(map[string]interface{})
 	err = json.NewDecoder(r.Body).Decode(&repositoriesbranches)
-
-	//todo this actually needs the target repository
-
-	log.Print("Decoded data")
-	log.Print(r.Body)
 
 	if err != nil {
 		log.Fatal("Failed to parse data")
 	}
 
-	log.Print(repositoriesbranches)
 	flatBranch := flattenBranchData(&repositoriesbranches)
 
-	if err := d.Set("repositories", flatBranch); err != nil {
+	if err := d.Set("branches", flatBranch); err != nil {
+		log.Fatal(reflect.TypeOf(repositoriesbranches))
+	}
+
+	if err := d.Set("source", repositoriesbranches["source"].(string)); err != nil {
 		log.Fatal(reflect.TypeOf(repositoriesbranches))
 	}
 
@@ -81,18 +99,20 @@ func dataSourceRepositoryBranchRead(ctx context.Context, d *schema.ResourceData,
 	return diagnostics
 }
 
-func flattenBranchData(Repositories *[]map[string]interface{}) []interface{} {
-	if Repositories != nil {
-		ois := make([]interface{}, len(*Repositories))
+func flattenBranchData(repos *map[string]interface{}) []interface{} {
+	if repos != nil {
+		ois := make([]interface{}, len(*repos))
+		temp := *repos
+		branches := temp["branches"].([]interface{})
+		for i, Repository := range branches {
+			oi := make(map[string]interface{})
+			scratch := Repository.(map[string]interface{})
+			oi["name"] = scratch["name"].(string)
+			oi["creationdate"] = scratch["creationDate"].(string)
+			oi["defaultbranch"] = scratch["defaultBranch"].(bool)
 
-		//for i, Repository := range *Repositories {
-		//	oi := make(map[string]interface{})
-		//oi["name"] = Repository["name"]
-		//oi["creationdate"] = Repository["creationDate"]
-		//oi["defaultbranch"] = Repository["defaultBranch"]
-
-		//	ois[i] = oi
-		//}
+			ois[i] = oi
+		}
 
 		return ois
 	}
