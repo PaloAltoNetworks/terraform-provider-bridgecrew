@@ -75,6 +75,8 @@ func Provider() *schema.Provider {
 			"bridgecrew_organisation":        dataSourceOrganisation(),
 			"bridgecrew_mappings":            dataSourceMappings(),
 			"bridgecrew_tag":                 dataSourceTag(),
+			"bridgecrew_tags":                dataSourceTags(),
+			"bridgecrew_justifications":      dataSourceJustifications(),
 		},
 	}
 }

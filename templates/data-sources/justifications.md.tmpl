@@ -1,0 +1,26 @@
+{{define "data_source_justifications"}}---
+layout: "bridgecrew"
+page_title: "Bridgecrew: data_source_justifications"
+sidebar_current: "docs-bridgecrew-data_source_justifications"
+
+description: |-
+Get a list of all your Bridgecrew platform suppression justifications.
+More details on the Bridgecrew API for this datasource are available <https://docs.bridgecrew.io/reference/getsuppressionsjustifications>.
+
+---
+
+# bridgecrew_justifications
+
+Use this datasource to get the details of your justifications for suppressions from the Bridgecrew Platform.
+
+
+
+
+## Example Usage
+```hcl
+data "bridgecrew_justifications" "given" {
+  policyid="james_aws_1643121179054"
+  accounts=["JamesWoolfenden/full-fast-fail", "JamesWoolfenden/terraform-aws-s3"]
+}
+```
+{{end}}
