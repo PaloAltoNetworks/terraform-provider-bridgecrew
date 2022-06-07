@@ -1,15 +1,5 @@
 package bridgecrew
 
-//type Mapping struct {
-//	Check     string `json:"check"`
-//	Guideline string `json:"guideline,omitempty"`
-//}
-//
-//type IDMap struct {
-//	BcId      string `json:"bcmap,omitempty"`
-//	CheckovId string `json:"checkovid"`
-//}
-
 // The Policy record
 type Policy struct {
 	Provider   string    `json:"provider"`
@@ -100,12 +90,13 @@ type Or struct {
 	Value         string   `json:"value,omitempty"`
 }
 
-//Result is for parsing return messages from the platform
+// Result is for parsing return messages from the platform
 type Result struct {
 	Policy string
+	ID     string
 }
 
-//User is for eventually managing users
+// User is for eventually managing users
 type User struct {
 	Role         string   `json:"role"`
 	Email        string   `json:"email"`
@@ -125,4 +116,36 @@ type Branch struct {
 type Repositories struct {
 	Source   string   `json:"source"`
 	Branches []Branch `json:"branches"`
+}
+
+// Tag is a structure for writing tag rules for Yor
+type Tag struct {
+	Name          string     `json:"name"`
+	Description   string     `json:"description,omitempty"`
+	TagRuleOOTBId string     `json:"source,omitempty"`
+	IsEnabled     bool       `json:"isenabled,omitempty"`
+	Repositories  []string   `json:"repositories"`
+	Definition    Definition `json:"ruleDefinition"`
+}
+
+// Definition for Yor tags
+type Definition struct {
+	TagGroups []TagGroup `json:"tag_groups"`
+}
+
+// TagGroup for yor definitions
+type TagGroup struct {
+	Name string `json:"name"`
+	Tags []Tags `json:"tags"`
+}
+
+// Tags struct to part of tag group
+type Tags struct {
+	Name  string                 `json:"name"`
+	Value map[string]interface{} `json:"value"`
+}
+
+// Value part of Tags struct
+type Value struct {
+	Default string `json:"default"`
 }

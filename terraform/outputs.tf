@@ -78,3 +78,7 @@ output "tags" {
 output "justifications" {
   value = data.bridgecrew_justifications.given
 }
+
+output "resource_tag" {
+  value = bridgecrew_tag.new
+}

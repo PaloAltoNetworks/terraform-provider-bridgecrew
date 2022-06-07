@@ -165,6 +165,10 @@ func main() {
 			name: "resource_complex_policy",
 			path: tempDir + "/resources/complex_policy.md.tmpl",
 		},
+		{
+			name: "resource_tag",
+			path: tempDir + "/resources/tag.md.tmpl",
+		},
 	}
 
 	var indexPages = []Page{
