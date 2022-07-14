@@ -244,19 +244,14 @@ func resourceTagRead(ctx context.Context, d *schema.ResourceData, m interface{})
 		return diag.FromErr(err)
 	}
 
-	err = d.Set("name", strings.ToLower(typedjson["name"].(string)))
-	diags = LogAppendError(err, diags)
-
-	err = d.Set("description", typedjson["description"].(string))
-	diags = LogAppendError(err, diags)
+	diags = setNotNil(typedjson, d, diags, "name", "name")
+	diags = setNotNil(typedjson, d, diags, "description", "description")
+	diags = setNotNil(typedjson, d, diags, "tagRuleOOTBid", "tagruleootbid")
+	diags = setNotNil(typedjson, d, diags, "createdBy", "createdby")
+	diags = setNotNil(typedjson, d, diags, "creationDate", "creationdate")
 
 	if typedjson["isEnabled"] != nil {
 		err = d.Set("isenabled", typedjson["isEnabled"].(bool))
-		diags = LogAppendError(err, diags)
-	}
-
-	if typedjson["tagRuleOOTBid"] != nil {
-		err = d.Set("tagruleootbid", typedjson["tagRuleOOTBid"].(string))
 		diags = LogAppendError(err, diags)
 	}
 
@@ -264,12 +259,6 @@ func resourceTagRead(ctx context.Context, d *schema.ResourceData, m interface{})
 		err = d.Set("candoactions", typedjson["canDoActions"].(bool))
 		diags = LogAppendError(err, diags)
 	}
-
-	err = d.Set("createdby", typedjson["createdBy"].(string))
-	diags = LogAppendError(err, diags)
-
-	err = d.Set("creationdate", typedjson["creationDate"].(string))
-	diags = LogAppendError(err, diags)
 
 	if reflect.TypeOf(typedjson["definition"]).String() != "[]interface {}" {
 		var temp []interface{}
@@ -282,7 +271,7 @@ func resourceTagRead(ctx context.Context, d *schema.ResourceData, m interface{})
 	diags = LogAppendError(err, diags)
 
 	if reflect.TypeOf(typedjson["repositories"]).String() != "[]interface {}" {
-		err = d.Set("repositories", typedjson["repositories"].(string))
+		diags = setNotNil(typedjson, d, diags, "repositories", "repositories")
 	} else {
 		var repositories []string
 		temp := typedjson["repositories"].([]interface{})
@@ -291,8 +280,8 @@ func resourceTagRead(ctx context.Context, d *schema.ResourceData, m interface{})
 			repositories = append(repositories, temp["id"].(string))
 		}
 		err = d.Set("repositories", repositories)
+		diags = LogAppendError(err, diags)
 	}
-	diags = LogAppendError(err, diags)
 
 	return diags
 }

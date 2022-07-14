@@ -429,28 +429,28 @@ func resourceComplexPolicyRead(ctx context.Context, d *schema.ResourceData, m in
 		return diag.FromErr(err)
 	}
 
-	err = d.Set("cloud_provider", strings.ToLower(typedjson["provider"].(string)))
-	diags = LogAppendError(err, diags)
+	diags = setNotNil(typedjson, d, diags, "provider", "cloud_provider")
+	diags = setNotNil(typedjson, d, diags, "file", "file")
+	diags = setNotNil(typedjson, d, diags, "title", "title")
+	diags = setNotNil(typedjson, d, diags, "severity", "severity")
+	diags = setNotNil(typedjson, d, diags, "category", "category")
 
-	err = d.Set("title", typedjson["title"].(string))
-	diags = LogAppendError(err, diags)
+	if typedjson["frameworks"] != nil {
+		err = d.Set("frameworks", typedjson["frameworks"])
+		diags = LogAppendError(err, diags)
+	}
 
-	err = d.Set("severity", strings.ToLower(typedjson["severity"].(string)))
-	diags = LogAppendError(err, diags)
+	if typedjson["guideline"] != nil {
+		err = d.Set("guidelines", typedjson["guideline"])
+		diags = LogAppendError(err, diags)
+	}
 
-	err = d.Set("category", strings.ToLower(typedjson["category"].(string)))
-	diags = LogAppendError(err, diags)
-
-	err = d.Set("frameworks", typedjson["frameworks"])
-	diags = LogAppendError(err, diags)
-
-	err = d.Set("guidelines", typedjson["guideline"])
-	diags = LogAppendError(err, diags)
-
-	myConditions := make([]interface{}, 1)
-	myConditions[0] = typedjson["conditionQuery"]
-	err = d.Set("conditionquery", myConditions)
-	diags = LogAppendError(err, diags)
+	if typedjson["conditionQuery"] != nil {
+		myConditions := make([]interface{}, 1)
+		myConditions[0] = typedjson["conditionQuery"]
+		err = d.Set("conditionquery", myConditions)
+		diags = LogAppendError(err, diags)
+	}
 
 	return diags
 }

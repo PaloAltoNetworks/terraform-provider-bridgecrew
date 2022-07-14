@@ -27,18 +27,6 @@ output "authors" {
   value = data.bridgecrew_authors.all
 }
 
-output "policy" {
-  value = bridgecrew_policy.new
-}
-
-output "simple_policy" {
-  value = bridgecrew_simple_policy.new
-}
-
-output "complex_policy" {
-  value = bridgecrew_complex_policy.new
-}
-
 output "repos" {
   value = data.bridgecrew_repositories.all
 }
@@ -81,4 +69,16 @@ output "justifications" {
 
 output "resource_tag" {
   value = bridgecrew_tag.new
+}
+
+output "policy" {
+  value = bridgecrew_policy.new
+}
+
+output "simple_policy" {
+  value = bridgecrew_simple_policy.new
+}
+
+output "complex_policy" {
+  value = bridgecrew_complex_policy.new
 }

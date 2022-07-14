@@ -4,8 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"log"
+	"strings"
+
+	"github.com/karlseguin/typed"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"gopkg.in/yaml.v2"
 )
 
@@ -61,4 +65,13 @@ func highlight(myPolicy interface{}) {
 	log.Print("XXXXXXXXXXX")
 	log.Print(myPolicy)
 	log.Print("XXXXXXXXXXX")
+}
+
+func setNotNil(typedjson typed.Typed, d *schema.ResourceData, diags diag.Diagnostics, item string, toset string) diag.Diagnostics {
+	var err error
+	if typedjson[item] != nil {
+		err = d.Set(toset, strings.ToLower(typedjson[item].(string)))
+	}
+	diags = LogAppendError(err, diags)
+	return diags
 }

@@ -3,6 +3,8 @@ package bridgecrew
 import (
 	"context"
 	"encoding/json"
+	"errors"
+	"fmt"
 	"log"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -125,7 +127,14 @@ func dataSourceTagRead(ctx context.Context, d *schema.ResourceData, m interface{
 	err = json.NewDecoder(r.Body).Decode(&Tag)
 
 	if err != nil {
-		log.Panic("Failed to parse data")
+		if err.Error() == "EOF" {
+			temp := fmt.Sprintf("no data found for id: %s", id)
+			err = errors.New(temp)
+			log.Print(temp)
+		} else {
+			log.Println("Failed to parse data")
+		}
+		return diag.FromErr(err)
 	}
 
 	if err := flattenTag(Tag, d, id); err != nil {

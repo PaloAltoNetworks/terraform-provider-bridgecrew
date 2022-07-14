@@ -3,7 +3,7 @@ resource "bridgecrew_policy" "new" {
   cloud_provider = "aws"
   frameworks     = ["Terraform"]
 
-  file             = "${path.module}/policy/policy.yaml"
+  file             = "./terraform/policy/policy.yaml"
   source_code_hash = filesha256("${path.module}/policy/policy.yaml")
 
   // although benchmarks take a free text this is total ***, as it needs to be an existing benchmark as

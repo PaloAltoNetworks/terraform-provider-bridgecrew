@@ -263,17 +263,12 @@ func resourcePolicyRead(ctx context.Context, d *schema.ResourceData, m interface
 		return diag.FromErr(err)
 	}
 
-	err = d.Set("cloud_provider", strings.ToLower(typedjson["provider"].(string)))
-	diags = LogAppendError(err, diags)
+	diags = setNotNil(typedjson, d, diags, "provider", "cloud_provider")
+	diags = setNotNil(typedjson, d, diags, "file", "file")
 
-	err = d.Set("frameworks", typedjson["frameworks"])
-	diags = LogAppendError(err, diags)
-
-	if typedjson["file"] != nil {
-		err = d.Set("file", typedjson["file"].(string))
-		if err != nil {
-			return diag.FromErr(err)
-		}
+	if typedjson["frameworks"] != nil {
+		err = d.Set("frameworks", typedjson["frameworks"])
+		diags = LogAppendError(err, diags)
 	}
 
 	return diags

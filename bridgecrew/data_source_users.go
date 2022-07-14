@@ -28,6 +28,10 @@ func dataSourceUsers() *schema.Resource {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
+						"allaccountsaccess": {
+							Type:     schema.TypeBool,
+							Computed: true,
+						},
 						"email": {
 							Type:     schema.TypeString,
 							Computed: true,
@@ -35,8 +39,17 @@ func dataSourceUsers() *schema.Resource {
 						"accounts": {
 							Type:     schema.TypeList,
 							Computed: true,
-							Elem: &schema.Schema{
-								Type: schema.TypeString,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									"id": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+									"alias": {
+										Type:     schema.TypeString,
+										Computed: true,
+									},
+								},
 							},
 						},
 						"lastmodified": {
@@ -107,9 +120,26 @@ func flattenUserData(Users *[]map[string]interface{}) []interface{} {
 		for i, User := range *Users {
 			oi := make(map[string]interface{})
 			oi["role"] = User["role"]
+			oi["allaccountsaccess"] = User["all_accounts_access"]
 			oi["email"] = User["email"]
 			oi["lastmodified"] = User["last_modified"]
-			oi["accounts"] = User["accounts"]
+
+			if User["accounts"] != nil {
+				var accounts []interface{}
+				accountsData := User["accounts"].([]interface{})
+				if len(accountsData) > 0 {
+					for _, element := range accountsData {
+						account := make(map[string]interface{})
+						temp := element.(map[string]interface{})
+						account["alias"] = temp["alias"].(string)
+						account["id"] = temp["id"].(string)
+						accounts = append(accounts, account)
+					}
+
+					oi["accounts"] = accounts
+				}
+			}
+
 			oi["customername"] = User["customer_name"]
 			ois[i] = oi
 		}

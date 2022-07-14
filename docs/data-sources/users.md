@@ -35,8 +35,17 @@ data "bridgecrew_users" "users" {}
 
 Read-Only:
 
-- **accounts** (List of String)
+- **accounts** (List of Object) (see [below for nested schema](#nestedobjatt--users--accounts))
+- **allaccountsaccess** (Boolean)
 - **customername** (String)
 - **email** (String)
 - **lastmodified** (Number)
 - **role** (String)
+
+<a id="nestedobjatt--users--accounts"></a>
+### Nested Schema for `users.accounts`
+
+Read-Only:
+
+- **alias** (String)
+- **id** (String)
