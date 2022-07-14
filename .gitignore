@@ -30,3 +30,4 @@ vendor
 .terraform.tfstate.lock.info
 terraform-provider-bridgecrew
 provider.bridgecrew.tf
+.infracost/

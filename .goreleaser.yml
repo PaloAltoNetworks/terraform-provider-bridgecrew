@@ -1,6 +1,6 @@
 ---
 # Visit https://goreleaser.com for documentation on how to customize this
-# behavior.
+# behaviour.
 before:
   hooks:
     # this is just an example and not a requirement for
@@ -29,7 +29,9 @@ builds:
     - arm64
   ignore:
     - goos: darwin
-      goarch: '386'
+      goarch:
+        - '386'
+        - 'arm64'
   binary: '{{ .ProjectName }}_v{{ .Version }}'
 archives:
 - format: zip # yamllint indentation
