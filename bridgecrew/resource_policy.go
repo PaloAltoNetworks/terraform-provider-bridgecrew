@@ -217,7 +217,7 @@ func setPolicy(d *schema.ResourceData) (Policy, error) {
 
 	filename, hasFilename := d.GetOk("file")
 
-	//if the filename is set then this is a yaml policy
+	// if the filename is set then this is a yaml policy
 	if hasFilename {
 		file, _ := filepath.Abs(filename.(string))
 		code, err := loadFileContent(file)

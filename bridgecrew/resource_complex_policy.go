@@ -47,12 +47,6 @@ func resourceComplexPolicy() *schema.Resource {
 				Description:  "Severity category allows you to indicate importance and this value can determine build or PR failure in the platform.",
 				ValidateFunc: ValidateSeverity,
 			},
-			//"pcseverity": {
-			//	Type:        schema.TypeString,
-			//	Optional:    true,
-			//	Description: "PRISMA Severity category allows you to indicate importance and this value can determine build or PR failure in the platform.",
-			//	//ValidateFunc: ValidateSeverity,
-			//},
 			"frameworks": {
 				Type:        schema.TypeList,
 				Description: "Which IAC framework is this policy targeting.",
@@ -325,7 +319,7 @@ func setComplexPolicy(d *schema.ResourceData) (complexPolicy, error) {
 
 	conditionQuery, err := setComplexConditions(d)
 
-	//Don't set if not set
+	// Don't set if not set
 	if err != nil {
 		return myPolicy, fmt.Errorf("unable set conditions %q", err)
 	}
@@ -358,13 +352,13 @@ func setComplexConditions(d *schema.ResourceData) (ConditionQuery, error) {
 			var Condition Conditions
 
 			if len(temp["or"].([]interface{})) > 0 {
-				//have to have some way of ignoring root vars if you choose to make an or statement
+				// have to have some way of ignoring root vars if you choose to make an or statement
 				log.Print("Or value set, ignoring other vars in block")
 
 				ors := temp["or"].([]interface{})
 				var orConditions []Or
 
-				//Process all the Or conditions
+				// Process all the Or conditions
 				for _, anor := range ors {
 					localor := anor.(map[string]interface{})
 
@@ -379,7 +373,7 @@ func setComplexConditions(d *schema.ResourceData) (ConditionQuery, error) {
 				}
 				TheOrs.Or = orConditions
 			} else {
-				//process the condition if just the root Condition
+				// process the condition if just the root Condition
 				Condition.Value = temp["value"].(string)
 				Condition.CondType = temp["cond_type"].(string)
 				Condition.Attribute = temp["attribute"].(string)
@@ -390,10 +384,10 @@ func setComplexConditions(d *schema.ResourceData) (ConditionQuery, error) {
 			}
 		}
 
-		//append the Ors as complete coniditions
+		// append the Ors as complete coniditions
 		conditions = append(conditions, TheOrs)
 
-		//add the whole condition to the resource
+		// add the whole condition to the resource
 		conditionQuery.Ands = conditions
 	} else {
 		return conditionQuery, errors.New("no Conditions Set")
@@ -402,6 +396,7 @@ func setComplexConditions(d *schema.ResourceData) (ConditionQuery, error) {
 	return conditionQuery, nil
 }
 
+//goland:noinspection GoUnusedParameter
 func resourceComplexPolicyRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 

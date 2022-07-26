@@ -21,7 +21,6 @@ func TestAccDataSourceTag(t *testing.T) {
 					resource.TestCheckResourceAttrSet("data.bridgecrew_tag.test", "createdby"),
 					resource.TestCheckResourceAttrSet("data.bridgecrew_tag.test", "creationdate"),
 					resource.TestCheckResourceAttrSet("data.bridgecrew_tag.test", "isenabled"),
-					//resource.TestCheckResourceAttrSet("data.bridgecrew_tag.test", "tagruleootbid"),
 					resource.TestCheckResourceAttrSet("data.bridgecrew_tag.test", "repositories.0.name"),
 					resource.TestCheckResourceAttrSet("data.bridgecrew_tag.test", "candoactions"),
 				),

@@ -144,20 +144,20 @@ func dataSourceTagRead(ctx context.Context, d *schema.ResourceData, m interface{
 	return diagnostics
 }
 
-func flattenTag(Tag map[string]interface{}, d *schema.ResourceData, id string) diag.Diagnostics {
-	name := Tag["name"].(string)
-	description := Tag["description"].(string)
-	candoactions := Tag["canDoActions"].(bool)
+func flattenTag(tag map[string]interface{}, d *schema.ResourceData, id string) diag.Diagnostics {
+	name := tag["name"].(string)
+	description := tag["description"].(string)
+	candoactions := tag["canDoActions"].(bool)
 
-	if Tag["createdBy"] != nil {
-		createdby := Tag["createdBy"].(string)
+	if tag["createdBy"] != nil {
+		createdby := tag["createdBy"].(string)
 		if err := d.Set("createdby", createdby); err != nil {
 			return diag.FromErr(err)
 		}
 	}
 
-	if Tag["definition"] != nil {
-		u, err := json.Marshal(Tag["definition"])
+	if tag["definition"] != nil {
+		u, err := json.Marshal(tag["definition"])
 		if err != nil {
 			return diag.FromErr(err)
 		}
@@ -166,8 +166,8 @@ func flattenTag(Tag map[string]interface{}, d *schema.ResourceData, id string) d
 		}
 	}
 
-	if len(Tag["repositories"].([]interface{})) != 0 {
-		repositories := Tag["repositories"].([]interface{})
+	if len(tag["repositories"].([]interface{})) != 0 {
+		repositories := tag["repositories"].([]interface{})
 		processed := make([]interface{}, len(repositories))
 		for i, repo := range repositories {
 			myrepo := repo.(map[string]interface{})
@@ -186,15 +186,15 @@ func flattenTag(Tag map[string]interface{}, d *schema.ResourceData, id string) d
 		}
 	}
 
-	if Tag["tagRuleOOTBId"] != nil {
-		tagruleootbid := Tag["tagRuleOOTBId"].(string)
+	if tag["tagRuleOOTBId"] != nil {
+		tagruleootbid := tag["tagRuleOOTBId"].(string)
 		if err := d.Set("tagruleootbid", tagruleootbid); err != nil {
 			return diag.FromErr(err)
 		}
 	}
 
-	creationdate := Tag["creationDate"].(string)
-	isenabled := Tag["isEnabled"].(bool)
+	creationdate := tag["creationDate"].(string)
+	isenabled := tag["isEnabled"].(bool)
 	if err := d.Set("description", description); err != nil {
 		return diag.FromErr(err)
 	}

@@ -188,10 +188,10 @@ func dataSourceIncidentRead(ctx context.Context, d *schema.ResourceData, m inter
 	return diagnostics
 }
 
-func flattenIncidentData(Incidents *[]map[string]interface{}) []interface{} {
-	if Incidents != nil {
-		ois := make([]interface{}, len(*Incidents))
-		for i, Incident := range *Incidents {
+func flattenIncidentData(incidents *[]map[string]interface{}) []interface{} {
+	if incidents != nil {
+		ois := make([]interface{}, len(*incidents))
+		for i, Incident := range *incidents {
 			oi := make(map[string]interface{})
 
 			oi["incident_id"] = Incident["incidentId"]
@@ -218,7 +218,6 @@ func flattenIncidentData(Incidents *[]map[string]interface{}) []interface{} {
 				if len(remediateData) > 0 {
 					for _, element := range remediateData {
 						account := make(map[string]interface{})
-						//account["repository"] = key
 						temp := element.(map[string]interface{})
 						account["id"] = temp["id"]
 						account["warning"] = temp["warning"]

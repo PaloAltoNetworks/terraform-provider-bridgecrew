@@ -52,6 +52,7 @@ func dataSourceRepositoryBranches() *schema.Resource {
 	}
 }
 
+//goland:noinspection GoUnusedParameter
 func dataSourceRepositoryBranchRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	owner := d.Get("repoowner").(string)
 	reponame := d.Get("reponame").(string)

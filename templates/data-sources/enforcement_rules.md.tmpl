@@ -1,0 +1,24 @@
+{{define "data_source_enforcement_rules"}}---
+layout: "bridgecrew"
+page_title: "Bridgecrew: data_source_enforcement_rules"
+sidebar_current: "docs-bridgecrew-data_source_enforcement_rules"
+
+description: |-
+Get a list of all your Bridgecrew platform enforcement rules.
+More details on the Bridgecrew API for this datasource are available <https://docs.bridgecrew.io/reference/getschemeforcustomer>.
+
+---
+
+# bridgecrew_enforcement_rules
+
+Use this datasource to get the details of all your enforcement rules from Bridgecrew.
+
+
+
+
+## Example Usage
+```hcl
+data "bridgecrew_enforcement_rules" "all" {
+}
+```
+{{end}}

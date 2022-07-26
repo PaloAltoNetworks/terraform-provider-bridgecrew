@@ -79,6 +79,7 @@ func dataSourceJustifications() *schema.Resource {
 	}
 }
 
+//goland:noinspection GoUnusedParameter
 func dataSourceJustificationsRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 
 	policyid := d.Get("policyid").(string)
@@ -88,7 +89,7 @@ func dataSourceJustificationsRead(ctx context.Context, d *schema.ResourceData, m
 	for i, account := range accounts {
 		query = query + "accounts=" + account.(string)
 		if i < (len(accounts) - 1) {
-			query = query + "&"
+			query += "&"
 		}
 	}
 
@@ -131,11 +132,11 @@ func dataSourceJustificationsRead(ctx context.Context, d *schema.ResourceData, m
 	return diagnostics
 }
 
-func flattenJustificationsData(Justifications *[]map[string]interface{}) []interface{} {
-	if Justifications != nil {
-		ois := make([]interface{}, len(*Justifications))
+func flattenJustificationsData(justifications *[]map[string]interface{}) []interface{} {
+	if justifications != nil {
+		ois := make([]interface{}, len(*justifications))
 
-		for i, Justify := range *Justifications {
+		for i, Justify := range *justifications {
 			oi := make(map[string]interface{})
 
 			oi["customer"] = Justify["customer"]

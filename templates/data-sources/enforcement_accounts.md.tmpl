@@ -1,0 +1,24 @@
+{{define "data_source_enforcement_accounts"}}---
+layout: "bridgecrew"
+page_title: "Bridgecrew: data_source_enforcement_accounts"
+sidebar_current: "docs-bridgecrew-data_source_enforcement_accounts"
+
+description: |-
+Get a list of all the Bridgecrew platform accounts managed with enforcement rules.
+More details on the Bridgecrew API for this datasource are available <https://docs.bridgecrew.io/reference/getaccounts>.
+
+---
+
+# bridgecrew_enforcement_accounts
+
+Use this datasource to get the details of all the accounts managed with enforcement rules by Bridgecrew.
+
+
+
+
+## Example Usage
+```hcl
+data "bridgecrew_enforcement_accounts" "all" {
+}
+```
+{{end}}

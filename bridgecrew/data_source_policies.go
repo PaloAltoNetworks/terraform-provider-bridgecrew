@@ -193,10 +193,10 @@ func dataSourcePolicyRead(ctx context.Context, d *schema.ResourceData, m interfa
 	return diagnostics
 }
 
-func flattenPolicyData(Policies *[]map[string]interface{}) []interface{} {
-	if Policies != nil {
-		ois := make([]interface{}, len(*Policies))
-		for i, Policy := range *Policies {
+func flattenPolicyData(policies *[]map[string]interface{}) []interface{} {
+	if policies != nil {
+		ois := make([]interface{}, len(*policies))
+		for i, Policy := range *policies {
 			oi := make(map[string]interface{})
 
 			oi["cloud_provider"] = Policy["provider"] // AWS
@@ -204,7 +204,7 @@ func flattenPolicyData(Policies *[]map[string]interface{}) []interface{} {
 			oi["title"] = Policy["title"]             // new policy
 			oi["descriptive_title"] = Policy["descriptiveTitle"]
 			oi["constructive_title"] = Policy["constructiveTitle"]
-			oi["severity"] = Policy["severity"] //CRITICAL
+			oi["severity"] = Policy["severity"] // CRITICAL
 			oi["category"] = Policy["category"] // General
 			oi["guideline"] = Policy["guideline"]
 			oi["iscustom"] = Policy["isCustom"]

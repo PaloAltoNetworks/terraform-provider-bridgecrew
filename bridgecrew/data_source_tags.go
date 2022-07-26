@@ -150,11 +150,11 @@ func dataSourceTagsRead(ctx context.Context, d *schema.ResourceData, m interface
 	return diagnostics
 }
 
-func flattenTags(Tags *[]map[string]interface{}) []interface{} {
-	if Tags != nil {
-		ois := make([]interface{}, len(*Tags))
+func flattenTags(tags *[]map[string]interface{}) []interface{} {
+	if tags != nil {
+		ois := make([]interface{}, len(*tags))
 
-		for i, Tag := range *Tags {
+		for i, Tag := range *tags {
 			oi := make(map[string]interface{})
 			oi["id"] = Tag["id"]
 			oi["name"] = Tag["name"]

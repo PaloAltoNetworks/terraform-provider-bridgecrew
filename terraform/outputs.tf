@@ -1,3 +1,15 @@
+output "enforcement_rules" {
+  value = data.bridgecrew_enforcement_rules.all
+}
+
+output "enforcement_rule" {
+  value = data.bridgecrew_enforcement_rule.all
+}
+
+output "enforcement_accounts" {
+  value = data.bridgecrew_enforcement_accounts.all
+}
+
 output "mappings" {
   value = data.bridgecrew_mappings.new
 }
@@ -82,3 +94,8 @@ output "simple_policy" {
 output "complex_policy" {
   value = bridgecrew_complex_policy.new
 }
+
+//when it works
+#output "enforcement_rule" {
+#  value = bridgecrew_enforcement_rule.example
+#}

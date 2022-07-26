@@ -330,7 +330,7 @@ func resourceTagUpdate(ctx context.Context, d *schema.ResourceData, m interface{
 			return d2
 		}
 
-		//no such field
+		// no such field
 		err = d.Set("last_updated", time.Now().Format(time.RFC850))
 		if err != nil {
 			return diag.FromErr(err)

@@ -46,12 +46,6 @@ func resourceSimplePolicy() *schema.Resource {
 				Description:  "Severity category allows you to indicate importance and this value can determine build or PR failure in the platform.",
 				ValidateFunc: ValidateSeverity,
 			},
-			//"pcseverity": {
-			//	Type:        schema.TypeString,
-			//	Optional:    true,
-			//	Description: "PRISMA severity category allows you to indicate importance and this value can determine build or PR failure in the platform.",
-			//	//ValidateFunc: ValidateSeverity,
-			//},
 			"frameworks": {
 				Type:        schema.TypeList,
 				Description: "Which IAC framework is this policy targeting.",
@@ -278,7 +272,7 @@ func setSimplePolicy(d *schema.ResourceData) (simplePolicy, error) {
 
 	conditions, err := setConditions(d)
 
-	//Don't set if not set
+	// Don't set if not set
 	if err != nil {
 		return myPolicy, fmt.Errorf("unable set conditions %q", err)
 	}
@@ -286,7 +280,6 @@ func setSimplePolicy(d *schema.ResourceData) (simplePolicy, error) {
 
 	myPolicy.Provider = d.Get("cloud_provider").(string)
 	myPolicy.Severity = d.Get("severity").(string)
-	//myPolicy.PRISMASeverity = d.Get("pcseverity").(string)
 	myPolicy.Title = d.Get("title").(string)
 	myPolicy.Guidelines = d.Get("guidelines").(string)
 	myPolicy.Frameworks, _ = CastToStringList(d.Get("frameworks").([]interface{}))
@@ -391,10 +384,10 @@ func resourceSimplePolicyRead(ctx context.Context, d *schema.ResourceData, m int
 		diags = LogAppendError(err, diags)
 	}
 
-	//myconditions should be an array it currently a map
-	//hence this fudge
+	// myconditions should be an array it currently a map
+	// hence this fudge
 	//todo: once you start passing around condition arrays
-	//this can go
+	// this can go
 	myConditions := make([]interface{}, 1)
 	myConditions[0] = typedjson["conditionQuery"]
 	err = d.Set("conditions", myConditions)
@@ -464,6 +457,7 @@ func simplepolicyChange(d *schema.ResourceData) bool {
 		d.HasChange("frameworks")
 }
 
+//goland:noinspection GoUnusedParameter
 func resourceSimplePolicyDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 
 	// Warning or errors can be collected in a slice type

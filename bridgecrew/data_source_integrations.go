@@ -110,10 +110,10 @@ func dataSourceIntegrationRead(ctx context.Context, d *schema.ResourceData, m in
 	return diagnostics
 }
 
-func flattenIntegrationData(Integrations *[]map[string]interface{}) []interface{} {
-	if Integrations != nil {
-		ois := make([]interface{}, len(*Integrations))
-		for i, Integration := range *Integrations {
+func flattenIntegrationData(integrations *[]map[string]interface{}) []interface{} {
+	if integrations != nil {
+		ois := make([]interface{}, len(*integrations))
+		for i, Integration := range *integrations {
 			oi := make(map[string]interface{})
 			oi["enable"] = Integration["enable"]
 			oi["id"] = Integration["id"]
@@ -121,11 +121,11 @@ func flattenIntegrationData(Integrations *[]map[string]interface{}) []interface{
 			oi["status"] = Integration["status"]
 			oi["type"] = Integration["type"]
 
-			//cheat and use json
+			// cheat and use json
 			jsoned, _ := json.Marshal(Integration["params"])
 			oi["params"] = string(jsoned)
 
-			//and again
+			// and again
 			jsdetails, _ := json.Marshal(Integration["integration_details"])
 			oi["integration_details"] = string(jsdetails)
 			ois[i] = oi

@@ -1,0 +1,25 @@
+{{define "data_source_enforcement_rule"}}---
+layout: "bridgecrew"
+page_title: "Bridgecrew: data_source_enforcement_rule"
+sidebar_current: "docs-bridgecrew-data_source_enforcement_rule"
+
+description: |-
+Get a Bridgecrew platform enforcement rule by AccountID.
+More details on the Bridgecrew API for this datasource are available <https://docs.bridgecrew.io/reference/getschemeforaccount>.
+
+---
+
+# bridgecrew_enforcement_rule
+
+Use this datasource to get the details of an enforcement rule for a particular repository from Bridgecrew.
+
+
+
+
+## Example Usage
+```hcl
+data "bridgecrew_enforcement_rule" "all" {
+  accountid="dbedb355-577d-4e11-ba74-77fd23a9db9a"
+}
+```
+{{end}}

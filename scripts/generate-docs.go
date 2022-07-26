@@ -83,6 +83,18 @@ func main() {
 
 	var dataPages = []Page{
 		{
+			name: "data_source_enforcement_accounts",
+			path: tempDir + "/data-sources/enforcement_accounts.md.tmpl",
+		},
+		{
+			name: "data_source_enforcement_rules",
+			path: tempDir + "/data-sources/enforcement_rules.md.tmpl",
+		},
+		{
+			name: "data_source_enforcement_rule",
+			path: tempDir + "/data-sources/enforcement_rule.md.tmpl",
+		},
+		{
 			name: "data_source_justifications",
 			path: tempDir + "/data-sources/justifications.md.tmpl",
 		},
@@ -169,6 +181,10 @@ func main() {
 			name: "resource_tag",
 			path: tempDir + "/resources/tag.md.tmpl",
 		},
+		//{
+		//	name: "resource_enforcement_rule",
+		//	path: tempDir + "/resources/enforcement_rule.md.tmpl",
+		//},
 	}
 
 	var indexPages = []Page{

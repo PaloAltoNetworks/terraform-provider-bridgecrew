@@ -6,7 +6,18 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/structure"
 )
 
-//ValidateOperator looks at valid logic operator inputs
+// ValidateThreshold ensure the enum is enforced
+func ValidateThreshold(val interface{}, key string) (warns []string, errs []error) {
+	switch val.(string) {
+	case
+		"CRITICAL", "HIGH", "MEDIUM", "LOW":
+		return
+	}
+	errs = append(errs, fmt.Errorf("%q Must be one of CRITICAL, HIGH, MEDIUM, LOW", val))
+	return
+}
+
+// ValidateOperator looks at valid logic operator inputs
 func ValidateOperator(val interface{}, key string) (warns []string, errs []error) {
 	switch val.(string) {
 	case
@@ -35,7 +46,7 @@ func ValidateOperator(val interface{}, key string) (warns []string, errs []error
 	return
 }
 
-//ValidateCloudProvider checks that only supported cloud providers are added
+// ValidateCloudProvider checks that only supported cloud providers are added
 func ValidateCloudProvider(val interface{}, key string) (warns []string, errs []error) {
 	switch val.(string) {
 	case

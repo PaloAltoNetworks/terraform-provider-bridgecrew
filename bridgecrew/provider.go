@@ -13,8 +13,8 @@ type ProviderConfig struct {
 	Prisma      string
 }
 
-//Provider main object
-//goland:noinspection GoDeprecation
+// Provider main object
+// goland:noinspection GoDeprecation
 func Provider() *schema.Provider {
 	return &schema.Provider{
 		ConfigureFunc: providerConfigure,
@@ -59,30 +59,34 @@ func Provider() *schema.Provider {
 			"bridgecrew_simple_policy":  resourceSimplePolicy(),
 			"bridgecrew_complex_policy": resourceComplexPolicy(),
 			"bridgecrew_tag":            resourceTag(),
+			//"bridgecrew_enforcement_rule": resourceEnforcementRule(),
 		},
 		DataSourcesMap: map[string]*schema.Resource{
-			"bridgecrew_repositories":        dataSourceRepositories(),
-			"bridgecrew_repository_branches": dataSourceRepositoryBranches(),
-			"bridgecrew_suppressions":        dataSourceSuppressions(),
-			"bridgecrew_policies":            dataSourcePolicies(),
-			"bridgecrew_authors":             dataSourceAuthors(),
-			"bridgecrew_apitokens":           dataSourceApitokens(),
-			"bridgecrew_apitokens_customer":  dataSourceApitokensByCustomer(),
-			"bridgecrew_integrations":        dataSourceIntegrations(),
-			"bridgecrew_users":               dataSourceUsers(),
-			"bridgecrew_incidents":           dataSourceIncidents(),
-			"bridgecrew_incidents_info":      dataSourceIncidentsInfo(),
-			"bridgecrew_incidents_preset":    dataSourceIncidentsPreset(),
-			"bridgecrew_organisation":        dataSourceOrganisation(),
-			"bridgecrew_mappings":            dataSourceMappings(),
-			"bridgecrew_tag":                 dataSourceTag(),
-			"bridgecrew_tags":                dataSourceTags(),
-			"bridgecrew_justifications":      dataSourceJustifications(),
+			"bridgecrew_repositories":         dataSourceRepositories(),
+			"bridgecrew_repository_branches":  dataSourceRepositoryBranches(),
+			"bridgecrew_suppressions":         dataSourceSuppressions(),
+			"bridgecrew_policies":             dataSourcePolicies(),
+			"bridgecrew_authors":              dataSourceAuthors(),
+			"bridgecrew_apitokens":            dataSourceApitokens(),
+			"bridgecrew_apitokens_customer":   dataSourceApitokensByCustomer(),
+			"bridgecrew_integrations":         dataSourceIntegrations(),
+			"bridgecrew_users":                dataSourceUsers(),
+			"bridgecrew_incidents":            dataSourceIncidents(),
+			"bridgecrew_incidents_info":       dataSourceIncidentsInfo(),
+			"bridgecrew_incidents_preset":     dataSourceIncidentsPreset(),
+			"bridgecrew_organisation":         dataSourceOrganisation(),
+			"bridgecrew_mappings":             dataSourceMappings(),
+			"bridgecrew_tag":                  dataSourceTag(),
+			"bridgecrew_tags":                 dataSourceTags(),
+			"bridgecrew_justifications":       dataSourceJustifications(),
+			"bridgecrew_enforcement_rules":    dataSourceEnforcementRules(),
+			"bridgecrew_enforcement_rule":     dataSourceEnforcementRule(),
+			"bridgecrew_enforcement_accounts": dataSourceEnforcementAccounts(),
 		},
 	}
 }
 
-// providerConfigure parses the config into the Terraform provider meta-object
+// providerConfigure parses the config into the Terraform provider metaobject
 func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 	url := d.Get("url").(string)
 	token := d.Get("token").(string)

@@ -10,11 +10,10 @@ type Policy struct {
 }
 
 type complexPolicy struct {
-	Provider string `json:"provider"`
-	ID       int    `json:"id,omitempty"`
-	Title    string `json:"title"`
-	Severity string `json:"severity"`
-	//PRISMASeverity string         `json:"pcseverity"`
+	Provider       string         `json:"provider"`
+	ID             int            `json:"id,omitempty"`
+	Title          string         `json:"title"`
+	Severity       string         `json:"severity"`
 	Category       string         `json:"category"`
 	Guidelines     string         `json:"guidelines"`
 	ConditionQuery ConditionQuery `json:"conditions,omitempty"`
@@ -23,11 +22,10 @@ type complexPolicy struct {
 }
 
 type simplePolicy struct {
-	Provider string `json:"provider"`
-	ID       int    `json:"id,omitempty"`
-	Title    string `json:"title"`
-	Severity string `json:"severity"`
-	//PRISMASeverity string     `json:"pcseverity"`
+	Provider   string     `json:"provider"`
+	ID         int        `json:"id,omitempty"`
+	Title      string     `json:"title"`
+	Severity   string     `json:"severity"`
 	Category   string     `json:"category"`
 	Guidelines string     `json:"guidelines"`
 	Conditions Conditions `json:"conditions,omitempty"`
@@ -50,13 +48,6 @@ type Benchmark struct {
 	Ciseksv11        []string `json:"CIS EKS V11,omitempty"`
 }
 
-//// Account is a child object to Policy
-//type Account struct {
-//	repository     string
-//	amounts        Amount
-//	lastupdatedate string
-//}
-
 // Amount is a sub-object of Account
 type Amount struct {
 	CLOSED     int
@@ -66,12 +57,12 @@ type Amount struct {
 	SUPPRESSED int
 }
 
-//ConditionQuery is the construct for the complex query screen
+// ConditionQuery is the construct for the complex query screen
 type ConditionQuery struct {
 	Ands []Conditions `json:"and,omitempty"`
 }
 
-//Conditions is part of the simple query
+// Conditions is part of the simple query
 type Conditions struct {
 	Attribute     string   `json:"attribute,omitempty"`
 	CondType      string   `json:"cond_type,omitempty"`
@@ -81,7 +72,7 @@ type Conditions struct {
 	Or            []Or     `json:"or,omitempty"`
 }
 
-//Or Is the Condition query to construct an Or block in tf
+// Or Is the Condition query to construct an Or block in tf
 type Or struct {
 	Attribute     string   `json:"attribute,omitempty"`
 	CondType      string   `json:"cond_type,omitempty"`
@@ -148,4 +139,33 @@ type Tags struct {
 // Value part of Tags struct
 type Value struct {
 	Default string `json:"default"`
+}
+
+// Rule datatype for enforcement rule
+type Rule struct {
+	Name           string         `json:"name"`
+	CodeCategories CodeCategories `json:"codeCategories"`
+	Repositories   []Repo         `json:"repositories,omitempty"`
+}
+
+// CodeCategories is a data type for enforcement rules
+type CodeCategories struct {
+	OpenSource  Category `json:"OPEN_SOURCE"`
+	Images      Category `json:"IMAGES"`
+	IAC         Category `json:"IAC"`
+	Secrets     Category `json:"SECRETS"`
+	SupplyChain Category `json:"SUPPLY_CHAIN"`
+}
+
+// Category set of enforcement rules
+type Category struct {
+	HardFailThreshold    string `json:"hardFailThreshold"`
+	SoftFailThreshold    string `json:"softFailThreshold"`
+	CommentsBotThreshold string `json:"commentsBotThreshold"`
+}
+
+// Repo strucuture for repo/accounts
+type Repo struct {
+	AccountID   string `json:"accountId"`
+	AccountName string `json:"accountName"`
 }

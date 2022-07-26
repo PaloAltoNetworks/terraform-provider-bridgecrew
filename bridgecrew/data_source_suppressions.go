@@ -64,6 +64,7 @@ func dataSourceSuppressions() *schema.Resource {
 	}
 }
 
+//goland:noinspection GoUnusedParameter
 func dataSourceSuppressionRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	params := RequestParams{"%s/suppressions", "v1", "GET"}
 
@@ -102,11 +103,11 @@ func dataSourceSuppressionRead(ctx context.Context, d *schema.ResourceData, m in
 	return diagnostics
 }
 
-func flattenSuppressionData(Suppressions *[]map[string]interface{}) []interface{} {
-	if Suppressions != nil {
-		ois := make([]interface{}, len(*Suppressions))
+func flattenSuppressionData(suppressions *[]map[string]interface{}) []interface{} {
+	if suppressions != nil {
+		ois := make([]interface{}, len(*suppressions))
 
-		for i, Suppression := range *Suppressions {
+		for i, Suppression := range *suppressions {
 			oi := make(map[string]interface{})
 			oi["suppressiontype"] = Suppression["suppressionType"]
 			oi["creationdate"] = Suppression["creationDate"]

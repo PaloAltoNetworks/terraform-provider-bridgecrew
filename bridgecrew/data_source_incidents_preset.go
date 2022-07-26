@@ -179,9 +179,9 @@ func dataSourceIncidentsPresetRead(ctx context.Context, d *schema.ResourceData, 
 	return diagnostics
 }
 
-func flattenIncidentsPresetData(Presets *map[string]interface{}) []interface{} {
-	if Presets != nil {
-		data := (*Presets)["data"].([]interface{})
+func flattenIncidentsPresetData(presets *map[string]interface{}) []interface{} {
+	if presets != nil {
+		data := (*presets)["data"].([]interface{})
 		ois := make([]interface{}, len(data))
 
 		for i, Preset := range data {

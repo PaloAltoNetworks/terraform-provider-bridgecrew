@@ -67,6 +67,7 @@ func dataSourceUsers() *schema.Resource {
 	}
 }
 
+//goland:noinspection GoUnusedParameter
 func dataSourceUsersRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	params := RequestParams{"%s/manage/users", "v1", "GET"}
 
@@ -114,10 +115,10 @@ func dataSourceUsersRead(ctx context.Context, d *schema.ResourceData, m interfac
 	return diagnostics
 }
 
-func flattenUserData(Users *[]map[string]interface{}) []interface{} {
-	if Users != nil {
-		ois := make([]interface{}, len(*Users))
-		for i, User := range *Users {
+func flattenUserData(users *[]map[string]interface{}) []interface{} {
+	if users != nil {
+		ois := make([]interface{}, len(*users))
+		for i, User := range *users {
 			oi := make(map[string]interface{})
 			oi["role"] = User["role"]
 			oi["allaccountsaccess"] = User["all_accounts_access"]

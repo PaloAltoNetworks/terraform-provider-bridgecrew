@@ -13,14 +13,14 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 )
 
-//RequestParams (parameters) for auth client
+// RequestParams (parameters) for auth client
 type RequestParams struct {
 	path    string
 	version string
 	method  string
 }
 
-//use basic auth client
+// use basic auth client
 func authClient(params RequestParams, configure ProviderConfig, body io.Reader) (*http.Client, *http.Request, diag.Diagnostics, bool) {
 
 	var diags diag.Diagnostics
@@ -31,7 +31,7 @@ func authClient(params RequestParams, configure ProviderConfig, body io.Reader) 
 	secretKey := configure.SecretKey
 
 	if prisma != "" {
-		//check accessKey and secretKey aren't empty
+		// check accessKey and secretKey aren't empty
 		if accessKey == "" {
 			log.Fatal("PRISMA_ACCESS_KEY_ID is missing")
 		}
@@ -82,7 +82,7 @@ func authClient(params RequestParams, configure ProviderConfig, body io.Reader) 
 
 // CheckStatus confirms returns codes are 200
 func CheckStatus(res *http.Response) (diag.Diagnostics, bool) {
-	if res.StatusCode != http.StatusOK {
+	if (res.StatusCode != http.StatusOK) && (res.StatusCode != http.StatusCreated) {
 		errStr := fmt.Errorf("Non-OK HTTP status: %d", res.StatusCode)
 		return diag.FromErr(errStr), true
 	}
