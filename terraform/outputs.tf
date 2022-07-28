@@ -95,6 +95,10 @@ output "complex_policy" {
   value = bridgecrew_complex_policy.new
 }
 
+output "code_reviews" {
+  value = data.bridgecrew_code_reviews.all
+}
+
 //when it works
 #output "enforcement_rule" {
 #  value = bridgecrew_enforcement_rule.example

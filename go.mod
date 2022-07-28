@@ -3,6 +3,7 @@ module github.com/jameswoolfenden/terraform-provider-bridgecrew
 go 1.16
 
 require (
+	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/aws/aws-sdk-go v1.37.0 // indirect
 	github.com/bflad/tfproviderlint v0.27.1 // indirect
 	github.com/cweill/gotests v1.6.0 // indirect

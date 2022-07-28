@@ -89,7 +89,7 @@ func flattenEnforcementAccounts(Enforcement []map[string]interface{}, d *schema.
 	var accounts []interface{}
 	if Enforcement != nil {
 		for _, account := range Enforcement {
-			myaccount := make(map[string]interface{}, 0)
+			myaccount := make(map[string]interface{})
 			myaccount["accountid"] = account["accountId"]
 			myaccount["accountname"] = account["accountName"]
 			myaccount["source"] = account["source"]

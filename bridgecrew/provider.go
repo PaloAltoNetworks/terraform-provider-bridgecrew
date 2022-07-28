@@ -82,6 +82,7 @@ func Provider() *schema.Provider {
 			"bridgecrew_enforcement_rules":    dataSourceEnforcementRules(),
 			"bridgecrew_enforcement_rule":     dataSourceEnforcementRule(),
 			"bridgecrew_enforcement_accounts": dataSourceEnforcementAccounts(),
+			"bridgecrew_code_reviews":         dataSourceCodeReviews(),
 		},
 	}
 }

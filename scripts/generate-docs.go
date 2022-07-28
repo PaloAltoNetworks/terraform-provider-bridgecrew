@@ -162,6 +162,10 @@ func main() {
 			name: "data_source_organisation",
 			path: tempDir + "/data-sources/organisation.md.tmpl",
 		},
+		{
+			name: "data_source_code_reviews",
+			path: tempDir + "/data-sources/code_reviews.md.tmpl",
+		},
 	}
 
 	var resourcePages = []Page{
