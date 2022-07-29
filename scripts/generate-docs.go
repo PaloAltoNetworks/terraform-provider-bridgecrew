@@ -185,10 +185,10 @@ func main() {
 			name: "resource_tag",
 			path: tempDir + "/resources/tag.md.tmpl",
 		},
-		//{
-		//	name: "resource_enforcement_rule",
-		//	path: tempDir + "/resources/enforcement_rule.md.tmpl",
-		//},
+		{
+			name: "resource_enforcement_rule",
+			path: tempDir + "/resources/enforcement_rule.md.tmpl",
+		},
 	}
 
 	var indexPages = []Page{
