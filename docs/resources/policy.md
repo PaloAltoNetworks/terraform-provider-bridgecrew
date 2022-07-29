@@ -61,12 +61,12 @@ You can view the policy id, either by using the API docs policy list feature:
 ### Optional
 
 - **benchmarks** (Block Set, Max: 1) This associates the check to one or many compliance frameworks. (see [below for nested schema](#nestedblock--benchmarks))
-- **last_updated** (String)
 - **source_code_hash** (String) By providing the source code hash change to the YAML file can be caught and the resource updated.
 
 ### Read-Only
 
 - **id** (String) The ID of this resource.
+- **last_updated** (String)
 
 <a id="nestedblock--benchmarks"></a>
 ### Nested Schema for `benchmarks`

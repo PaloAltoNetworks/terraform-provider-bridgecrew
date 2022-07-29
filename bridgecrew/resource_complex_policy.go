@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"strings"
 	"time"
 
@@ -242,7 +241,6 @@ func resourceComplexPolicy() *schema.Resource {
 			},
 			"last_updated": {
 				Type:     schema.TypeString,
-				Optional: true,
 				Computed: true,
 			},
 		},
@@ -326,7 +324,7 @@ func setComplexPolicy(d *schema.ResourceData) (complexPolicy, error) {
 	myPolicy.ConditionQuery = conditionQuery
 	myPolicy.Provider = d.Get("cloud_provider").(string)
 	myPolicy.Severity = d.Get("severity").(string)
-	myPolicy.Title = d.Get("title").(string)
+	myPolicy.Title = strings.ToLower(d.Get("title").(string))
 	myPolicy.Guidelines = d.Get("guidelines").(string)
 	myPolicy.Frameworks, _ = CastToStringList(d.Get("frameworks").([]interface{}))
 
@@ -352,9 +350,6 @@ func setComplexConditions(d *schema.ResourceData) (ConditionQuery, error) {
 			var Condition Conditions
 
 			if len(temp["or"].([]interface{})) > 0 {
-				// have to have some way of ignoring root vars if you choose to make an or statement
-				log.Print("Or value set, ignoring other vars in block")
-
 				ors := temp["or"].([]interface{})
 				var orConditions []Or
 
@@ -446,6 +441,8 @@ func resourceComplexPolicyRead(ctx context.Context, d *schema.ResourceData, m in
 		err = d.Set("conditionquery", myConditions)
 		diags = LogAppendError(err, diags)
 	}
+
+	_ = d.Set("last_updated", time.Now().Format(time.RFC850))
 
 	return diags
 }

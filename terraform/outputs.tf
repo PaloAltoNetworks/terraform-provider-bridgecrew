@@ -100,6 +100,6 @@ output "code_reviews" {
 }
 
 //when it works
-#output "enforcement_rule" {
-#  value = bridgecrew_enforcement_rule.example
-#}
+output "made_enforcement_rule" {
+  value = bridgecrew_enforcement_rule.example
+}

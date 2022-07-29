@@ -21,11 +21,11 @@ func dataSourceEnforcementAccounts() *schema.Resource {
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"accountid": {
+						"account_id": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"accountname": {
+						"account_name": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
@@ -90,8 +90,8 @@ func flattenEnforcementAccounts(Enforcement []map[string]interface{}, d *schema.
 	if Enforcement != nil {
 		for _, account := range Enforcement {
 			myaccount := make(map[string]interface{})
-			myaccount["accountid"] = account["accountId"]
-			myaccount["accountname"] = account["accountName"]
+			myaccount["account_id"] = account["accountId"]
+			myaccount["account_name"] = account["accountName"]
 			myaccount["source"] = account["source"]
 			accounts = append(accounts, myaccount)
 		}

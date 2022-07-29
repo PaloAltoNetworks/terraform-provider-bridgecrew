@@ -46,7 +46,7 @@ func dataSourceSuppressions() *schema.Resource {
 							Required: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
-									"accountid": {
+									"account_id": {
 										Type:     schema.TypeString,
 										Required: true,
 									},
@@ -124,7 +124,7 @@ func flattenSuppressionData(suppressions *[]map[string]interface{}) []interface{
 					account := element.(map[string]interface{})
 
 					myaccount := make(map[string]interface{})
-					myaccount["accountid"] = account["accountId"].(string)
+					myaccount["account_id"] = account["accountId"].(string)
 					myaccount["resourceid"] = account["resourceId"]
 
 					myresources = append(myresources, myaccount)

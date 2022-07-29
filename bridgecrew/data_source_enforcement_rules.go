@@ -50,20 +50,20 @@ func dataSourceEnforcementRules() *schema.Resource {
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
-									"supplychain": {
+									"supply_chain": {
 										Type:     schema.TypeSet,
 										Computed: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
-												"softfailthreshold": {
+												"soft_fail_threshold": {
 													Type:     schema.TypeString,
 													Computed: true,
 												},
-												"hardfailthreshold": {
+												"hard_fail_threshold": {
 													Type:     schema.TypeString,
 													Computed: true,
 												},
-												"commentsbotthreshold": {
+												"comments_bot_threshold": {
 													Type:     schema.TypeString,
 													Computed: true,
 												},
@@ -75,15 +75,15 @@ func dataSourceEnforcementRules() *schema.Resource {
 										Computed: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
-												"softfailthreshold": {
+												"soft_fail_threshold": {
 													Type:     schema.TypeString,
 													Computed: true,
 												},
-												"hardfailthreshold": {
+												"hard_fail_threshold": {
 													Type:     schema.TypeString,
 													Computed: true,
 												},
-												"commentsbotthreshold": {
+												"comments_bot_threshold": {
 													Type:     schema.TypeString,
 													Computed: true,
 												},
@@ -95,15 +95,15 @@ func dataSourceEnforcementRules() *schema.Resource {
 										Computed: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
-												"softfailthreshold": {
+												"soft_fail_threshold": {
 													Type:     schema.TypeString,
 													Computed: true,
 												},
-												"hardfailthreshold": {
+												"hard_fail_threshold": {
 													Type:     schema.TypeString,
 													Computed: true,
 												},
-												"commentsbotthreshold": {
+												"comments_bot_threshold": {
 													Type:     schema.TypeString,
 													Computed: true,
 												},
@@ -115,35 +115,35 @@ func dataSourceEnforcementRules() *schema.Resource {
 										Computed: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
-												"softfailthreshold": {
+												"soft_fail_threshold": {
 													Type:     schema.TypeString,
 													Computed: true,
 												},
-												"hardfailthreshold": {
+												"hard_fail_threshold": {
 													Type:     schema.TypeString,
 													Computed: true,
 												},
-												"commentsbotthreshold": {
+												"comments_bot_threshold": {
 													Type:     schema.TypeString,
 													Computed: true,
 												},
 											},
 										},
 									},
-									"opensource": {
+									"open_source": {
 										Type:     schema.TypeSet,
 										Computed: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
-												"softfailthreshold": {
+												"soft_fail_threshold": {
 													Type:     schema.TypeString,
 													Computed: true,
 												},
-												"hardfailthreshold": {
+												"hard_fail_threshold": {
 													Type:     schema.TypeString,
 													Computed: true,
 												},
-												"commentsbotthreshold": {
+												"comments_bot_threshold": {
 													Type:     schema.TypeString,
 													Computed: true,
 												},
@@ -168,11 +168,11 @@ func dataSourceEnforcementRules() *schema.Resource {
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"accountid": {
+						"account_id": {
 							Type:     schema.TypeString,
 							Required: true,
 						},
-						"accountname": {
+						"account_name": {
 							Type:     schema.TypeString,
 							Required: true,
 						},
@@ -252,11 +252,11 @@ func flattenEnforcementRules(enforcement map[string]interface{}, d *schema.Resou
 				images := setcategories(mycode, "IMAGES")
 				opensource := setcategories(mycode, "OPEN_SOURCE")
 
-				mycat["supplychain"] = supplies
+				mycat["supply_chain"] = supplies
 				mycat["secrets"] = secrets
 				mycat["iac"] = iac
 				mycat["images"] = images
-				mycat["opensource"] = opensource
+				mycat["open_source"] = opensource
 
 				codecategories = append(codecategories, mycat)
 				therule["codecategories"] = codecategories
@@ -273,8 +273,8 @@ func flattenEnforcementRules(enforcement map[string]interface{}, d *schema.Resou
 			for _, account := range accounts {
 				theNot := make(map[string]interface{})
 				myAccount := account.(map[string]interface{})
-				theNot["accountname"] = myAccount["accountName"].(string)
-				theNot["accountid"] = myAccount["accountId"].(string)
+				theNot["account_name"] = myAccount["accountName"].(string)
+				theNot["account_id"] = myAccount["accountId"].(string)
 				Repos = append(Repos, theNot)
 			}
 			if err := d.Set("accountsnotinmainrule", Repos); err != nil {
@@ -290,9 +290,9 @@ func setcategories(mycode map[string]interface{}, node string) []interface{} {
 	secrets := make([]interface{}, 0)
 	secretchain := make(map[string]interface{})
 	mysecrets := mycode[node].(map[string]interface{})
-	secretchain["softfailthreshold"] = mysecrets["softFailThreshold"].(string)
-	secretchain["hardfailthreshold"] = mysecrets["hardFailThreshold"].(string)
-	secretchain["commentsbotthreshold"] = mysecrets["commentsBotThreshold"].(string)
+	secretchain["soft_fail_threshold"] = mysecrets["softFailThreshold"].(string)
+	secretchain["hard_fail_threshold"] = mysecrets["hardFailThreshold"].(string)
+	secretchain["comments_bot_threshold"] = mysecrets["commentsBotThreshold"].(string)
 	secrets = append(secrets, secretchain)
 	return secrets
 }

@@ -1,6 +1,6 @@
 resource "bridgecrew_complex_policy" "new" {
   cloud_provider = "aws"
-  title          = "my second test ${random_string.complex.id}"
+  title          = "my second complex test ${lower(random_string.complex.id)}"
   severity       = "critical"
   category       = "monitoring"
   frameworks     = ["Terraform"]
@@ -39,7 +39,7 @@ resource "bridgecrew_complex_policy" "new" {
   // does the version, and that more like a category than anything
   benchmarks {
     cis_aws_v12 = ["1.1", "2.1"]
-    cis_aws_v13 = ["1.3", "2.4"]
+    cis_aws_v13 = ["1.3", "2.4", "3.1"]
   }
 
 }

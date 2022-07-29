@@ -16,7 +16,7 @@ func dataSourceEnforcementRule() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceEnforcementRuleRead,
 		Schema: map[string]*schema.Schema{
-			"accountid": {
+			"account_id": {
 				Type:        schema.TypeString,
 				Required:    true,
 				Description: "Account ID",
@@ -26,20 +26,20 @@ func dataSourceEnforcementRule() *schema.Resource {
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"supplychain": {
+						"supply_chain": {
 							Type:     schema.TypeSet,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
-									"softfailthreshold": {
+									"soft_fail_threshold": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
-									"hardfailthreshold": {
+									"hard_fail_threshold": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
-									"commentsbotthreshold": {
+									"comments_bot_threshold": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
@@ -51,15 +51,15 @@ func dataSourceEnforcementRule() *schema.Resource {
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
-									"softfailthreshold": {
+									"soft_fail_threshold": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
-									"hardfailthreshold": {
+									"hard_fail_threshold": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
-									"commentsbotthreshold": {
+									"comments_bot_threshold": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
@@ -71,15 +71,15 @@ func dataSourceEnforcementRule() *schema.Resource {
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
-									"softfailthreshold": {
+									"soft_fail_threshold": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
-									"hardfailthreshold": {
+									"hard_fail_threshold": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
-									"commentsbotthreshold": {
+									"comments_bot_threshold": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
@@ -91,35 +91,35 @@ func dataSourceEnforcementRule() *schema.Resource {
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
-									"softfailthreshold": {
+									"soft_fail_threshold": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
-									"hardfailthreshold": {
+									"hard_fail_threshold": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
-									"commentsbotthreshold": {
+									"comments_bot_threshold": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
 								},
 							},
 						},
-						"opensource": {
+						"open_source": {
 							Type:     schema.TypeSet,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
-									"softfailthreshold": {
+									"soft_fail_threshold": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
-									"hardfailthreshold": {
+									"hard_fail_threshold": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
-									"commentsbotthreshold": {
+									"comments_bot_threshold": {
 										Type:     schema.TypeString,
 										Computed: true,
 									},
@@ -136,7 +136,7 @@ func dataSourceEnforcementRule() *schema.Resource {
 //goland:noinspection GoUnusedParameter,GoLinter,GoLinter
 func dataSourceEnforcementRuleRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 
-	id := d.Get("accountid").(string)
+	id := d.Get("account_id").(string)
 	request := "%s/enforcement-rules/account/" + id
 	params := RequestParams{request, "v1", "GET"}
 
@@ -182,27 +182,11 @@ func dataSourceEnforcementRuleRead(ctx context.Context, d *schema.ResourceData, 
 func flattenEnforcementRule(enforcement map[string]interface{}, d *schema.ResourceData) diag.Diagnostics {
 	accountid := enforcement["accountId"]
 
-	if err := d.Set("accountid", accountid.(string)); err != nil {
+	if err := d.Set("account_id", accountid.(string)); err != nil {
 		return diag.FromErr(err)
 	}
 
-	codecategories := make([]interface{}, 0)
-	mycat := make(map[string]interface{})
-	mycode := enforcement["codeCategories"].(map[string]interface{})
-
-	supplies := setcategories(mycode, "SUPPLY_CHAIN")
-	secrets := setcategories(mycode, "SECRETS")
-	iac := setcategories(mycode, "IAC")
-	images := setcategories(mycode, "IMAGES")
-	opensource := setcategories(mycode, "OPEN_SOURCE")
-
-	mycat["supplychain"] = supplies
-	mycat["secrets"] = secrets
-	mycat["iac"] = iac
-	mycat["images"] = images
-	mycat["opensource"] = opensource
-
-	codecategories = append(codecategories, mycat)
+	codecategories := SetCodeCategories(enforcement)
 
 	if err := d.Set("codecategories", codecategories); err != nil {
 		return diag.FromErr(err)

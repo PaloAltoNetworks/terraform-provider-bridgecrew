@@ -123,20 +123,20 @@ func dataSourceCodeReviews() *schema.Resource {
 										Computed: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
-												"supplychain": {
+												"supply_chain": {
 													Type:     schema.TypeSet,
 													Computed: true,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
-															"softfailthreshold": {
+															"soft_fail_threshold": {
 																Type:     schema.TypeString,
 																Computed: true,
 															},
-															"hardfailthreshold": {
+															"hard_fail_threshold": {
 																Type:     schema.TypeString,
 																Computed: true,
 															},
-															"commentsbotthreshold": {
+															"comments_bot_threshold": {
 																Type:     schema.TypeString,
 																Computed: true,
 															},
@@ -148,15 +148,15 @@ func dataSourceCodeReviews() *schema.Resource {
 													Computed: true,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
-															"softfailthreshold": {
+															"soft_fail_threshold": {
 																Type:     schema.TypeString,
 																Computed: true,
 															},
-															"hardfailthreshold": {
+															"hard_fail_threshold": {
 																Type:     schema.TypeString,
 																Computed: true,
 															},
-															"commentsbotthreshold": {
+															"comments_bot_threshold": {
 																Type:     schema.TypeString,
 																Computed: true,
 															},
@@ -168,15 +168,15 @@ func dataSourceCodeReviews() *schema.Resource {
 													Computed: true,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
-															"softfailthreshold": {
+															"soft_fail_threshold": {
 																Type:     schema.TypeString,
 																Computed: true,
 															},
-															"hardfailthreshold": {
+															"hard_fail_threshold": {
 																Type:     schema.TypeString,
 																Computed: true,
 															},
-															"commentsbotthreshold": {
+															"comments_bot_threshold": {
 																Type:     schema.TypeString,
 																Computed: true,
 															},
@@ -188,35 +188,35 @@ func dataSourceCodeReviews() *schema.Resource {
 													Computed: true,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
-															"softfailthreshold": {
+															"soft_fail_threshold": {
 																Type:     schema.TypeString,
 																Computed: true,
 															},
-															"hardfailthreshold": {
+															"hard_fail_threshold": {
 																Type:     schema.TypeString,
 																Computed: true,
 															},
-															"commentsbotthreshold": {
+															"comments_bot_threshold": {
 																Type:     schema.TypeString,
 																Computed: true,
 															},
 														},
 													},
 												},
-												"opensource": {
+												"open_source": {
 													Type:     schema.TypeSet,
 													Computed: true,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
-															"softfailthreshold": {
+															"soft_fail_threshold": {
 																Type:     schema.TypeString,
 																Computed: true,
 															},
-															"hardfailthreshold": {
+															"hard_fail_threshold": {
 																Type:     schema.TypeString,
 																Computed: true,
 															},
-															"commentsbotthreshold": {
+															"comments_bot_threshold": {
 																Type:     schema.TypeString,
 																Computed: true,
 															},
@@ -319,11 +319,11 @@ func flattenCodeReviews(codereviews map[string]interface{}, d *schema.ResourceDa
 					images := setcategories(mycode, "IMAGES")
 					opensource := setcategories(mycode, "OPEN_SOURCE")
 
-					mycat["supplychain"] = supplies
+					mycat["supply_chain"] = supplies
 					mycat["secrets"] = secrets
 					mycat["iac"] = iac
 					mycat["images"] = images
-					mycat["opensource"] = opensource
+					mycat["open_source"] = opensource
 
 					enforcement = append(enforcement, mycat)
 					mypr["enforcement_rule"] = enforcement

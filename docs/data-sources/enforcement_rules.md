@@ -38,8 +38,8 @@ data "bridgecrew_enforcement_rules" "all" {
 
 Required:
 
-- **accountid** (String)
-- **accountname** (String)
+- **account_id** (String)
+- **account_name** (String)
 
 
 <a id="nestedatt--rules"></a>
@@ -63,18 +63,18 @@ Read-Only:
 
 - **iac** (Set of Object) (see [below for nested schema](#nestedobjatt--rules--codecategories--iac))
 - **images** (Set of Object) (see [below for nested schema](#nestedobjatt--rules--codecategories--images))
-- **opensource** (Set of Object) (see [below for nested schema](#nestedobjatt--rules--codecategories--opensource))
+- **open_source** (Set of Object) (see [below for nested schema](#nestedobjatt--rules--codecategories--open_source))
 - **secrets** (Set of Object) (see [below for nested schema](#nestedobjatt--rules--codecategories--secrets))
-- **supplychain** (Set of Object) (see [below for nested schema](#nestedobjatt--rules--codecategories--supplychain))
+- **supply_chain** (Set of Object) (see [below for nested schema](#nestedobjatt--rules--codecategories--supply_chain))
 
 <a id="nestedobjatt--rules--codecategories--iac"></a>
 ### Nested Schema for `rules.codecategories.iac`
 
 Read-Only:
 
-- **commentsbotthreshold** (String)
-- **hardfailthreshold** (String)
-- **softfailthreshold** (String)
+- **comments_bot_threshold** (String)
+- **hard_fail_threshold** (String)
+- **soft_fail_threshold** (String)
 
 
 <a id="nestedobjatt--rules--codecategories--images"></a>
@@ -82,19 +82,19 @@ Read-Only:
 
 Read-Only:
 
-- **commentsbotthreshold** (String)
-- **hardfailthreshold** (String)
-- **softfailthreshold** (String)
+- **comments_bot_threshold** (String)
+- **hard_fail_threshold** (String)
+- **soft_fail_threshold** (String)
 
 
-<a id="nestedobjatt--rules--codecategories--opensource"></a>
-### Nested Schema for `rules.codecategories.opensource`
+<a id="nestedobjatt--rules--codecategories--open_source"></a>
+### Nested Schema for `rules.codecategories.open_source`
 
 Read-Only:
 
-- **commentsbotthreshold** (String)
-- **hardfailthreshold** (String)
-- **softfailthreshold** (String)
+- **comments_bot_threshold** (String)
+- **hard_fail_threshold** (String)
+- **soft_fail_threshold** (String)
 
 
 <a id="nestedobjatt--rules--codecategories--secrets"></a>
@@ -102,16 +102,16 @@ Read-Only:
 
 Read-Only:
 
-- **commentsbotthreshold** (String)
-- **hardfailthreshold** (String)
-- **softfailthreshold** (String)
+- **comments_bot_threshold** (String)
+- **hard_fail_threshold** (String)
+- **soft_fail_threshold** (String)
 
 
-<a id="nestedobjatt--rules--codecategories--supplychain"></a>
-### Nested Schema for `rules.codecategories.supplychain`
+<a id="nestedobjatt--rules--codecategories--supply_chain"></a>
+### Nested Schema for `rules.codecategories.supply_chain`
 
 Read-Only:
 
-- **commentsbotthreshold** (String)
-- **hardfailthreshold** (String)
-- **softfailthreshold** (String)
+- **comments_bot_threshold** (String)
+- **hard_fail_threshold** (String)
+- **soft_fail_threshold** (String)

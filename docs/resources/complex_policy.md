@@ -100,11 +100,11 @@ You can view the policy id, either by using the API docs policy list feature:
 - **benchmarks** (Block Set, Max: 1) This associates the check to one or many compliance frameworks. (see [below for nested schema](#nestedblock--benchmarks))
 - **conditionquery** (Block Set, Max: 1) The actual query. (see [below for nested schema](#nestedblock--conditionquery))
 - **guidelines** (String) A detailed description helps you understand why the check was written and should include details on how to fix the violation. The field must more than 50 chars in it, to encourage detail.
-- **last_updated** (String)
 
 ### Read-Only
 
 - **id** (String) The ID of this resource.
+- **last_updated** (String)
 
 <a id="nestedblock--benchmarks"></a>
 ### Nested Schema for `benchmarks`

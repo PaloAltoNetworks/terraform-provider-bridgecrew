@@ -47,5 +47,5 @@ Read-Only:
 
 Read-Only:
 
-- **accountid** (String)
+- **account_id** (String)
 - **resourceid** (String)

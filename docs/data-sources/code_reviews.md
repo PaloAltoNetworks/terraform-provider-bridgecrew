@@ -70,58 +70,58 @@ Read-Only:
 
 - **iac** (Set of Object) (see [below for nested schema](#nestedobjatt--codereviews--pr--enforcement_rule--iac))
 - **images** (Set of Object) (see [below for nested schema](#nestedobjatt--codereviews--pr--enforcement_rule--images))
-- **opensource** (Set of Object) (see [below for nested schema](#nestedobjatt--codereviews--pr--enforcement_rule--opensource))
+- **open_source** (Set of Object) (see [below for nested schema](#nestedobjatt--codereviews--pr--enforcement_rule--open_source))
 - **secrets** (Set of Object) (see [below for nested schema](#nestedobjatt--codereviews--pr--enforcement_rule--secrets))
-- **supplychain** (Set of Object) (see [below for nested schema](#nestedobjatt--codereviews--pr--enforcement_rule--supplychain))
+- **supply_chain** (Set of Object) (see [below for nested schema](#nestedobjatt--codereviews--pr--enforcement_rule--supply_chain))
 
 <a id="nestedobjatt--codereviews--pr--enforcement_rule--iac"></a>
-### Nested Schema for `codereviews.pr.enforcement_rule.supplychain`
+### Nested Schema for `codereviews.pr.enforcement_rule.supply_chain`
 
 Read-Only:
 
-- **commentsbotthreshold** (String)
-- **hardfailthreshold** (String)
-- **softfailthreshold** (String)
+- **comments_bot_threshold** (String)
+- **hard_fail_threshold** (String)
+- **soft_fail_threshold** (String)
 
 
 <a id="nestedobjatt--codereviews--pr--enforcement_rule--images"></a>
-### Nested Schema for `codereviews.pr.enforcement_rule.supplychain`
+### Nested Schema for `codereviews.pr.enforcement_rule.supply_chain`
 
 Read-Only:
 
-- **commentsbotthreshold** (String)
-- **hardfailthreshold** (String)
-- **softfailthreshold** (String)
+- **comments_bot_threshold** (String)
+- **hard_fail_threshold** (String)
+- **soft_fail_threshold** (String)
 
 
-<a id="nestedobjatt--codereviews--pr--enforcement_rule--opensource"></a>
-### Nested Schema for `codereviews.pr.enforcement_rule.supplychain`
+<a id="nestedobjatt--codereviews--pr--enforcement_rule--open_source"></a>
+### Nested Schema for `codereviews.pr.enforcement_rule.supply_chain`
 
 Read-Only:
 
-- **commentsbotthreshold** (String)
-- **hardfailthreshold** (String)
-- **softfailthreshold** (String)
+- **comments_bot_threshold** (String)
+- **hard_fail_threshold** (String)
+- **soft_fail_threshold** (String)
 
 
 <a id="nestedobjatt--codereviews--pr--enforcement_rule--secrets"></a>
-### Nested Schema for `codereviews.pr.enforcement_rule.supplychain`
+### Nested Schema for `codereviews.pr.enforcement_rule.supply_chain`
 
 Read-Only:
 
-- **commentsbotthreshold** (String)
-- **hardfailthreshold** (String)
-- **softfailthreshold** (String)
+- **comments_bot_threshold** (String)
+- **hard_fail_threshold** (String)
+- **soft_fail_threshold** (String)
 
 
-<a id="nestedobjatt--codereviews--pr--enforcement_rule--supplychain"></a>
-### Nested Schema for `codereviews.pr.enforcement_rule.supplychain`
+<a id="nestedobjatt--codereviews--pr--enforcement_rule--supply_chain"></a>
+### Nested Schema for `codereviews.pr.enforcement_rule.supply_chain`
 
 Read-Only:
 
-- **commentsbotthreshold** (String)
-- **hardfailthreshold** (String)
-- **softfailthreshold** (String)
+- **comments_bot_threshold** (String)
+- **hard_fail_threshold** (String)
+- **soft_fail_threshold** (String)
 
 
 

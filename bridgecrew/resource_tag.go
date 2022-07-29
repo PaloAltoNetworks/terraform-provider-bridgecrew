@@ -283,6 +283,8 @@ func resourceTagRead(ctx context.Context, d *schema.ResourceData, m interface{})
 		diags = LogAppendError(err, diags)
 	}
 
+	_ = d.Set("last_updated", time.Now().Format(time.RFC850))
+
 	return diags
 }
 

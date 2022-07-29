@@ -31,11 +31,11 @@ func resourceEnforcementRule() *schema.Resource {
 				Required: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"accountid": {
+						"account_id": {
 							Type:     schema.TypeString,
 							Required: true,
 						},
-						"accountname": {
+						"account_name": {
 							Type:     schema.TypeString,
 							Required: true,
 						},
@@ -253,11 +253,11 @@ func setEnforcementRule(d *schema.ResourceData) (Rule, error) {
 			for _, myRepo := range myRepos {
 				var Repo Repo
 				temp := myRepo.(map[string]interface{})
-				if temp["accountid"] != nil {
-					Repo.AccountID = temp["accountid"].(string)
+				if temp["account_id"] != nil {
+					Repo.AccountID = temp["account_id"].(string)
 				}
-				if temp["accountname"] != nil {
-					Repo.AccountName = temp["accountname"].(string)
+				if temp["account_name"] != nil {
+					Repo.AccountName = temp["account_name"].(string)
 				}
 
 				myRule.Repositories = append(myRule.Repositories, Repo)
@@ -311,6 +311,8 @@ func resourceEnforcementRuleRead(ctx context.Context, d *schema.ResourceData, m 
 
 	ID := d.Id()
 
+	// sometimes you don't get the data back you should - I imagine this is due to read and wrote enpoints and poor replication
+	time.Sleep(2 * time.Second)
 	params := RequestParams{"%s/enforcement-rules/", "v1", "GET"}
 	configure := m.(ProviderConfig)
 	client, req, diagnostics, done := authClient(params, configure, nil)
@@ -339,11 +341,77 @@ func resourceEnforcementRuleRead(ctx context.Context, d *schema.ResourceData, m 
 		return diag.FromErr(err)
 	}
 
-	log.Print(ID)
-	// todo this doesnt work -really need for there to be a working read method
-	// parsing through the enforcement list fails to return the recently create record
+	rules := Enforcements["rules"].([]interface{})
+
+	for _, rule := range rules {
+		therule := rule.(map[string]interface{})
+
+		if therule["id"] == ID {
+
+			if err := d.Set("creationdate", therule["creationDate"]); err != nil {
+				return diag.FromErr(err)
+			}
+
+			if err := d.Set("name", therule["name"]); err != nil {
+				return diag.FromErr(err)
+			}
+
+			if err := d.Set("createdby", therule["createdBy"]); err != nil {
+				return diag.FromErr(err)
+			}
+
+			if err := d.Set("last_updated", time.Now().Format(time.RFC850)); err != nil {
+				return diag.FromErr(err)
+			}
+
+			codecategories := SetCodeCategories(therule)
+
+			if err := d.Set("code_categories", codecategories); err != nil {
+				return diag.FromErr(err)
+			}
+
+			repositories := therule["repositories"].([]interface{})
+			myrepos := make([]interface{}, 0)
+			if repositories != nil {
+				for _, repo := range repositories {
+					temp := repo.(map[string]interface{})
+					myrepo := make(map[string]interface{})
+					myrepo["account_name"] = temp["accountName"].(string)
+					myrepo["account_id"] = temp["accountId"].(string)
+					myrepos = append(myrepos, myrepo)
+				}
+				if err := d.Set("repositories", myrepos); err != nil {
+					return diag.FromErr(err)
+				}
+			}
+
+			break
+		}
+	}
 
 	return diags
+}
+
+// SetCodeCategories for DRY
+func SetCodeCategories(therule map[string]interface{}) []interface{} {
+	codecategories := make([]interface{}, 0)
+	mycat := make(map[string]interface{})
+	mycode := therule["codeCategories"].(map[string]interface{})
+
+	supplies := setcategories(mycode, "SUPPLY_CHAIN")
+	secrets := setcategories(mycode, "SECRETS")
+	iac := setcategories(mycode, "IAC")
+	images := setcategories(mycode, "IMAGES")
+	opensource := setcategories(mycode, "OPEN_SOURCE")
+
+	mycat["supply_chain"] = supplies
+	mycat["secrets"] = secrets
+	mycat["iac"] = iac
+	mycat["images"] = images
+	mycat["open_source"] = opensource
+
+	codecategories = append(codecategories, mycat)
+	return codecategories
 }
 
 func resourceEnforcementRuleUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {

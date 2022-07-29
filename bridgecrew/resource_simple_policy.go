@@ -280,7 +280,7 @@ func setSimplePolicy(d *schema.ResourceData) (simplePolicy, error) {
 
 	myPolicy.Provider = d.Get("cloud_provider").(string)
 	myPolicy.Severity = d.Get("severity").(string)
-	myPolicy.Title = d.Get("title").(string)
+	myPolicy.Title = strings.ToLower(d.Get("title").(string))
 	myPolicy.Guidelines = d.Get("guidelines").(string)
 	myPolicy.Frameworks, _ = CastToStringList(d.Get("frameworks").([]interface{}))
 
@@ -392,6 +392,8 @@ func resourceSimplePolicyRead(ctx context.Context, d *schema.ResourceData, m int
 	myConditions[0] = typedjson["conditionQuery"]
 	err = d.Set("conditions", myConditions)
 	diags = LogAppendError(err, diags)
+
+	_ = d.Set("last_updated", time.Now().Format(time.RFC850))
 
 	return diags
 }

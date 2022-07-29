@@ -37,6 +37,6 @@ data "bridgecrew_enforcement_accounts" "all" {
 
 Read-Only:
 
-- **accountid** (String)
-- **accountname** (String)
+- **account_id** (String)
+- **account_name** (String)
 - **source** (String)

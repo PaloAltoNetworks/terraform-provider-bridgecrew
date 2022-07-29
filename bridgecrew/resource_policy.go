@@ -142,7 +142,6 @@ func resourcePolicy() *schema.Resource {
 			},
 			"last_updated": {
 				Type:     schema.TypeString,
-				Optional: true,
 				Computed: true,
 			},
 		},
@@ -270,6 +269,8 @@ func resourcePolicyRead(ctx context.Context, d *schema.ResourceData, m interface
 		err = d.Set("frameworks", typedjson["frameworks"])
 		diags = LogAppendError(err, diags)
 	}
+
+	_ = d.Set("last_updated", time.Now().Format(time.RFC850))
 
 	return diags
 }
