@@ -23,7 +23,6 @@
 // 7. move contents of temp directory (i.e. data-sources/resources) into repo /templates directory
 // 8. run tfplugindocs generate function to output final documentation to /docs directory
 // 9. replace /templates/{data-sources/resources} directories with their backed up equivalents
-//
 package main
 
 import (
@@ -409,6 +408,7 @@ func CopyFile(src, dst string) (err error) {
 // CopyDir recursively copies a directory tree, attempting to preserve permissions.
 // Source directory must exist, destination directory must *not* exist.
 // Symlinks are ignored and skipped.
+//
 //goland:noinspection GoUnusedExportedFunction
 func CopyDir(src string, dst string) (err error) {
 	src = filepath.Clean(src)

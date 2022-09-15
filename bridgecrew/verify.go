@@ -25,6 +25,7 @@ func CheckYAMLString(yamlString interface{}) (string, error) {
 
 	s := yamlString.(string)
 
+	//nolint
 	err := yaml.Unmarshal([]byte(s), &y)
 
 	return s, err

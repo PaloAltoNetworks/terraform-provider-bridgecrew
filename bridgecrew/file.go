@@ -8,6 +8,7 @@ import (
 
 // loadFileContent returns contents of a file in a given path
 func loadFileContent(v string) ([]byte, error) {
+	//nolint
 	filename, err := homedir.Expand(v)
 	if err != nil {
 		return nil, err
