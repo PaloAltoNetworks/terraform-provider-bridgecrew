@@ -21,28 +21,33 @@ func ValidateThreshold(val interface{}, key string) (warns []string, errs []erro
 func ValidateOperator(val interface{}, key string) (warns []string, errs []error) {
 	switch val.(string) {
 	case
+		"contains",
+		"ending_with",
 		"equals",
-		"not_equals",
-		"regex_match",
-		"not_reqex_match",
+		"exists",
 		"greater_than",
 		"greater_than_or_equal",
-		"less_than_or_equal",
+		"jsonpath_equals",
+		"jsonpath_exists",
 		"less_than",
-		"exists",
-		"not_exists",
-		"contains",
+		"less_than_or_equal",
 		"not_contains",
-		"starting_with",
+		"not_equals",
+		"not_ending_with",
+		"not_exists",
+		"not_reqex_match",
 		"not_starting_with",
-		"ending_with",
-		"not_ending_with":
+		"not_subset",
+		"regex_match",
+		"starting_with",
+		"subset",
+		"within":
 		return
 	}
-	errs = append(errs, fmt.Errorf("%q Must be one of equals, not_equals,"+
-		"regex_match,not_reqex_match, greater_than, greater_than_or_equal,"+
-		"less_than_or_equal,less_than,exists,not_exists,contains,not_contains,"+
-		"starting_with, not_starting_with, ending_with or not_ending_with", val))
+	errs = append(errs, fmt.Errorf("%q Must be one of contains, ending_with, equals, exists,greater_than,"+
+		" greater_than_or_equal, jsonpath_equals, jsonpath_exists, less_than, less_than_or_equal, not_contains,"+
+		" not_equals, not_ending_with, not_exists, not_reqex_match, not_starting_with, not_subset, regex_match,"+
+		" starting_with, subset, within", val))
 	return
 }
 
@@ -52,11 +57,11 @@ func ValidateCloudProvider(val interface{}, key string) (warns []string, errs []
 	case
 		"aws",
 		"gcp",
-		"linode",
 		"azure",
 		"oci",
-		"alicloud",
-		"digitalocean":
+		"alibabacloud",
+		"kubernetes",
+		"openstack":
 		return
 	}
 	errs = append(errs, fmt.Errorf("%q Must be one of aws, gcp, linode, azure, oci, alicloud or digitalocean", val))
@@ -81,6 +86,7 @@ func ValidateSeverity(val interface{}, key string) (warns []string, errs []error
 func ValidateCategory(val interface{}, key string) (warns []string, errs []error) {
 	switch val.(string) {
 	case
+		"compute",
 		"elasticsearch",
 		"general",
 		"storage",
@@ -150,7 +156,7 @@ func ValidPolicyJSON(v interface{}, k string) (ws []string, errors []error) {
 	return
 }
 
-//keyExists looks to see if an item exists in the map
+// keyExists looks to see if an item exists in the map
 func keyExists(decoded map[string]interface{}, key string) bool {
 	val, ok := decoded[key]
 	return ok && val != nil

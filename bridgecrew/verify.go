@@ -60,6 +60,7 @@ func CastToStringList(temp []interface{}) ([]string, bool) {
 }
 
 // highlight is just to help with manual debugging, so you can find the lines
+//
 //goland:noinspection SpellCheckingInspection
 func highlight(myPolicy interface{}) {
 	log.Print("XXXXXXXXXXX")

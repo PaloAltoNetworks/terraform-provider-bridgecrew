@@ -1,4 +1,4 @@
-.PHONY: clean  docs
+.PHONY: clean  docs api-docs
 TEST?=$$(go list ./... | grep -v 'vendor'| grep -v 'scripts'| grep -v 'version')
 HOSTNAME=jameswoolfenden
 FULL_PKG_NAME=github.com/bridgecrewio/terraform-provider-bridgecrew
@@ -99,3 +99,6 @@ fmt:
 
 vet:
 	go vet ./...
+
+api-docs:
+    godoc
