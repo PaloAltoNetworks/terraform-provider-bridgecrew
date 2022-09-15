@@ -6,9 +6,27 @@ import (
 
 func TestValidateOperator(t *testing.T) {
 	validValues := []string{
-		"equals", "not_equals", "regex_match", "not_reqex_match", "greater_than", "greater_than_or_equal",
-		"less_than_or_equal", "less_than", "exists", "not_exists", "contains", "not_contains", "starting_with",
-		"not_starting_with", "ending_with", "not_ending_with",
+		"contains",
+		"ending_with",
+		"equals",
+		"exists",
+		"greater_than",
+		"greater_than_or_equal",
+		"jsonpath_equals",
+		"jsonpath_exists",
+		"less_than",
+		"less_than_or_equal",
+		"not_contains",
+		"not_equals",
+		"not_ending_with",
+		"not_exists",
+		"not_reqex_match",
+		"not_starting_with",
+		"not_subset",
+		"regex_match",
+		"starting_with",
+		"subset",
+		"within",
 	}
 
 	for _, s := range validValues {
@@ -37,11 +55,11 @@ func TestValidateCloudProvider(t *testing.T) {
 	validValues := []string{
 		"aws",
 		"gcp",
-		"linode",
 		"azure",
 		"oci",
-		"alicloud",
-		"digitalocean",
+		"alibabacloud",
+		"kubernetes",
+		"openstack",
 	}
 
 	for _, s := range validValues {
@@ -100,6 +118,7 @@ func TestValidateSeverity(t *testing.T) {
 
 func TestValidateCategory(t *testing.T) {
 	validValues := []string{
+		"compute",
 		"elasticsearch",
 		"general",
 		"storage",
